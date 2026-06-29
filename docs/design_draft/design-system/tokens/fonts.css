@@ -1,0 +1,14 @@
+/* ============================================================
+   Tori (Stillsee) — Webfonts
+   ------------------------------------------------------------
+   Brand typefaces (all free, SIL OFL / Google Fonts):
+     - Display / Wordmark : "Do Hyeon"       (400 — chunky gothic)
+     - Heading / Body     : "Noto Sans KR"   (300–900)
+     - Label/Code/Meta/Date: "IBM Plex Mono" (300–600)
+   Note: Do Hyeon ships a single weight (400). IBM Plex Mono has
+   NO Korean glyphs — Korean label/meta text falls back to
+   Noto Sans KR, so the mono treatment reads best on Latin,
+   numbers and dates.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@300;400;500;600&family=Do+Hyeon&display=swap');

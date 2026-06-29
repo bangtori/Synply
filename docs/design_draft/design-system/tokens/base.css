@@ -1,0 +1,40 @@
+/* ============================================================
+   Tori (Stillsee) — Base layer
+   Minimal element defaults so the brand voice shows up
+   without a reset framework. Tokens come from the imports
+   in styles.css.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-body); /* Noto Sans KR — headings per spec */
+  font-weight: var(--fw-extra);
+  color: var(--text-strong);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-snug);
+  margin: 0;
+}
+
+/* Opt-in display face (Do Hyeon) for hero-scale headlines + wordmark */
+.tori-display { font-family: var(--font-display); font-weight: var(--fw-regular); letter-spacing: var(--ls-tight); }
+
+a { color: var(--text-link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code, pre, kbd { font-family: var(--font-mono); }
+
+::selection { background: var(--violet-200); color: var(--violet-900); }
+
+:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }

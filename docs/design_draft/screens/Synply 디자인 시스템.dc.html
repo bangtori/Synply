@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/tori-stillsee-design-system-b10a4685-3b0c-463b-ae76-258341be7791/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/tori-stillsee-design-system-b10a4685-3b0c-463b-ae76-258341be7791/tokens/colors.css">
+<link rel="stylesheet" href="_ds/tori-stillsee-design-system-b10a4685-3b0c-463b-ae76-258341be7791/tokens/typography.css">
+<link rel="stylesheet" href="_ds/tori-stillsee-design-system-b10a4685-3b0c-463b-ae76-258341be7791/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/tori-stillsee-design-system-b10a4685-3b0c-463b-ae76-258341be7791/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/tori-stillsee-design-system-b10a4685-3b0c-463b-ae76-258341be7791/tokens/base.css">
+<link rel="stylesheet" href="_ds/tori-stillsee-design-system-b10a4685-3b0c-463b-ae76-258341be7791/styles.css">
+<style>body{margin:0;}</style>
+</helmet>
+<div style="background:#e7e5df;font-family:var(--font-body);min-height:100vh;box-sizing:border-box;padding:56px 48px 80px;">
+<div style="max-width:1100px;margin:0 auto;">
+
+  <!-- HEADER -->
+  <div style="margin:0 0 14px;display:flex;align-items:center;gap:12px;">
+    <img src="assets/tori-dice-cutout.png" alt="" style="width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 5px 10px rgba(91,46,229,.35));">
+    <span style="font-family:var(--font-display);font-size:28px;color:var(--ink-950);letter-spacing:-.01em;">Synply</span>
+  </div>
+  <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;color:var(--brand);margin-bottom:12px;">DESIGN SYSTEM · v1 (1차 확정)</div>
+  <h1 style="font-family:var(--font-body);font-weight:800;font-size:38px;line-height:1.15;color:var(--ink-950);letter-spacing:-.02em;margin:0 0 14px;">Synply 디자인 시스템</h1>
+  <p style="font-size:15px;line-height:1.7;color:var(--text-muted);margin:0 0 14px;max-width:760px;">데스크탑·모바일 시안에서 실제 사용한 색상·타이포·컴포넌트를 정리한 스펙 시트입니다. Tori (Stillsee) 디자인 시스템의 토큰을 기반으로 하며, 모든 값은 <span style="font-family:var(--font-mono);font-size:13px;">var(--token)</span>으로 참조합니다. 상태가 있는 컴포넌트(버튼·칩·입력 등)는 모든 상태를 나열했습니다.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:44px;">
+    <a href="Synply MVP 화면셋.dc.html" style="font-family:var(--font-mono);font-size:11px;color:var(--violet-700);background:var(--brand-subtle);border:1px solid var(--border-brand);border-radius:999px;padding:7px 13px;text-decoration:none;">← 데스크탑 화면셋</a>
+    <a href="Synply MVP 모바일.dc.html" style="font-family:var(--font-mono);font-size:11px;color:var(--violet-700);background:var(--brand-subtle);border:1px solid var(--border-brand);border-radius:999px;padding:7px 13px;text-decoration:none;">← 모바일 화면셋</a>
+  </div>
+
+  <!-- ============ COLORS ============ -->
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 22px;">
+    <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:#fff;background:var(--ink-950);border-radius:7px;padding:5px 11px;letter-spacing:.04em;">01</span>
+    <h2 style="font-family:var(--font-body);font-weight:800;font-size:24px;color:var(--ink-950);letter-spacing:-.01em;margin:0;">색상</h2>
+  </div>
+
+  <!-- brand -->
+  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;margin:0 0 12px;">브랜드 · 액센트</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;">
+    <sc-for list="{{ brandColors }}" as="c" hint-placeholder-count="4">
+      <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);overflow:hidden;">
+        <div style="height:88px;background:{{ c.value }};"></div>
+        <div style="padding:13px 15px;">
+          <div style="font-weight:700;font-size:14px;color:var(--ink-900);">{{ c.name }}</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);margin-top:4px;">{{ c.token }}</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:2px;">{{ c.hex }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- ink ramp -->
+  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;margin:0 0 12px;">중립 · ink (violet-tinted grey)</div>
+  <div style="display:flex;border-radius:16px;overflow:hidden;border:1px solid var(--border-subtle);box-shadow:var(--shadow-sm);margin-bottom:14px;">
+    <sc-for list="{{ inkRamp }}" as="c" hint-placeholder-count="9">
+      <div style="flex:1;">
+        <div style="height:64px;background:{{ c.value }};"></div>
+        <div style="padding:9px 8px;background:var(--surface-card);text-align:center;"><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-body);">{{ c.step }}</div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);margin-bottom:28px;">ink-50 표면/구분선 → ink-950 본문 텍스트. 텍스트는 <span style="color:var(--text-body);">--text-body</span> / <span style="color:var(--text-muted);">--text-muted</span> / <span style="color:var(--text-subtle);">--text-subtle</span> 3단계 사용.</div>
+
+  <!-- surfaces -->
+  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;margin:0 0 12px;">표면</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px;">
+    <sc-for list="{{ surfaces }}" as="c" hint-placeholder-count="4">
+      <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);overflow:hidden;">
+        <div style="height:64px;background:{{ c.value }};border-bottom:1px solid var(--border-subtle);"></div>
+        <div style="padding:12px 14px;"><div style="font-weight:700;font-size:13px;color:var(--ink-900);">{{ c.name }}</div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-top:3px;">{{ c.token }}</div></div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- 6-stage status colors -->
+  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;margin:0 0 6px;">전형 상태 6단계 · 의미색 매핑</div>
+  <div style="font-size:13px;line-height:1.6;color:var(--text-muted);margin:0 0 14px;max-width:720px;">Synply 고유 매핑. 배지 배경/전경 + 분포 차트 색을 함께 정의합니다. 지원완료=중립, 진행(서류합격=블루·면접중=브랜드 바이올렛), 합격=그린, 불합격=레드/딥레드.</div>
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 0.8fr;padding:12px 20px;background:var(--ink-50);border-bottom:1px solid var(--border-subtle);">
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);font-weight:600;">상태</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);font-weight:600;">배지</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);font-weight:600;">차트 색</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);font-weight:600;">분모 포함</div>
+    </div>
+    <sc-for list="{{ statusColors }}" as="s" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 0.8fr;align-items:center;padding:13px 20px;border-bottom:1px solid var(--border-subtle);">
+        <div style="display:flex;align-items:center;gap:9px;"><span style="width:11px;height:11px;border-radius:50%;background:{{ s.bar }};"></span><span style="font-weight:700;font-size:14px;color:var(--ink-900);">{{ s.label }}</span></div>
+        <div><span style="display:inline-flex;align-items:center;font-weight:700;font-size:12px;line-height:1;padding:.5em .8em;border-radius:999px;background:{{ s.bg }};color:{{ s.fg }};">{{ s.label }}</span></div>
+        <div style="font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted);">{{ s.bar }}</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:{{ s.denColor }};">{{ s.den }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);margin-bottom:44px;">서류 합격률 = (서류합격+면접중+최종합격+면접불합격) ÷ 서류 결과가 확정된 지원 수. 지원완료는 분모에서 제외, 분모 0이면 “데이터 없음”.</div>
+
+  <!-- ============ TYPOGRAPHY ============ -->
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 22px;">
+    <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:#fff;background:var(--ink-950);border-radius:7px;padding:5px 11px;letter-spacing:.04em;">02</span>
+    <h2 style="font-family:var(--font-body);font-weight:800;font-size:24px;color:var(--ink-950);letter-spacing:-.01em;margin:0;">타이포그래피</h2>
+  </div>
+
+  <!-- typefaces -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;">
+    <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:22px;">
+      <div style="font-family:var(--font-display);font-size:52px;line-height:1;color:var(--ink-950);">Synply</div>
+      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;color:var(--brand);margin-top:16px;">DO HYEON</div>
+      <div style="font-size:13px;line-height:1.6;color:var(--text-muted);margin-top:6px;">디스플레이 · 워드마크 전용. 단일 weight(400), 크게 쓸 때만.</div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);margin-top:8px;">--font-display</div>
+    </div>
+    <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:22px;">
+      <div style="font-family:var(--font-body);font-weight:800;font-size:30px;line-height:1.1;color:var(--ink-950);">지원 기록</div>
+      <div style="font-family:var(--font-body);font-weight:400;font-size:15px;color:var(--text-body);margin-top:6px;">가나다 Aa 0123</div>
+      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;color:var(--brand);margin-top:14px;">NOTO SANS KR</div>
+      <div style="font-size:13px;line-height:1.6;color:var(--text-muted);margin-top:6px;">제목·본문. weight 400↔800로 위계. 한·영 모두.</div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);margin-top:8px;">--font-body</div>
+    </div>
+    <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:22px;">
+      <div style="font-family:var(--font-mono);font-size:26px;line-height:1.1;color:var(--ink-950);">06.10 · 78%</div>
+      <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);margin-top:8px;letter-spacing:.04em;">PLATFORM · STATUS</div>
+      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;color:var(--brand);margin-top:14px;">IBM PLEX MONO</div>
+      <div style="font-size:13px;line-height:1.6;color:var(--text-muted);margin-top:6px;">라벨·메타·날짜·숫자. 영문/숫자에 사용(한글 글리프 없음).</div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);margin-top:8px;">--font-mono</div>
+    </div>
+  </div>
+
+  <!-- type scale -->
+  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;margin:0 0 12px;">실제 사용 스케일</div>
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:44px;">
+    <sc-for list="{{ typeScale }}" as="t" hint-placeholder-count="7">
+      <div style="display:flex;align-items:baseline;gap:20px;padding:15px 22px;border-bottom:1px solid var(--border-subtle);">
+        <div style="flex:1;min-width:0;font-family:{{ t.ff }};font-weight:{{ t.fw }};font-size:{{ t.size }};line-height:1.2;color:var(--ink-950);letter-spacing:{{ t.ls }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ t.sample }}</div>
+        <div style="flex:none;font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);text-align:right;">{{ t.role }}</div>
+        <div style="flex:none;width:130px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-align:right;">{{ t.spec }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- ============ COMPONENTS ============ -->
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 8px;">
+    <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:#fff;background:var(--ink-950);border-radius:7px;padding:5px 11px;letter-spacing:.04em;">03</span>
+    <h2 style="font-family:var(--font-body);font-weight:800;font-size:24px;color:var(--ink-950);letter-spacing:-.01em;margin:0;">컴포넌트</h2>
+  </div>
+  <p style="font-size:14px;line-height:1.6;color:var(--text-muted);margin:0 0 28px;max-width:720px;">상태가 있는 컴포넌트는 모든 상태를 나열했습니다. 둥근 모서리(버튼·칩 = pill, 카드 = 18px, 입력 = 14px)와 바이올렛 틴트 그림자는 Tori 토큰을 따릅니다.</p>
+
+  <!-- BUTTONS -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">버튼</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 22px;">4개 변형 × 상태(Default · Hover · Pressed · Disabled). 한 화면에 Primary는 하나만.</div>
+    <div style="display:grid;grid-template-columns:auto repeat(4,1fr);gap:16px 18px;align-items:center;">
+      <!-- header row -->
+      <div></div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;text-align:center;">Default</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;text-align:center;">Hover</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;text-align:center;">Pressed</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-subtle);text-transform:uppercase;text-align:center;">Disabled</div>
+
+      <sc-for list="{{ buttonRows }}" as="r" hint-placeholder-count="4">
+        <div style="font-weight:700;font-size:13px;color:var(--ink-900);">{{ r.name }}</div>
+        <div style="display:flex;justify-content:center;"><span style="{{ r.default }}">{{ r.label }}</span></div>
+        <div style="display:flex;justify-content:center;"><span style="{{ r.hover }}">{{ r.label }}</span></div>
+        <div style="display:flex;justify-content:center;"><span style="{{ r.pressed }}">{{ r.label }}</span></div>
+        <div style="display:flex;justify-content:center;"><span style="{{ r.disabled }}">{{ r.label }}</span></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- STATUS BADGES -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">전형 상태 배지</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">6단계 전부. pill · weight 700 · 12px. 리스트/상세/대시보드 공통.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <sc-for list="{{ statusColors }}" as="s" hint-placeholder-count="6">
+        <span style="display:inline-flex;align-items:center;font-weight:700;font-size:12px;line-height:1;padding:.55em .85em;border-radius:999px;background:{{ s.bg }};color:{{ s.fg }};">{{ s.label }}</span>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- FILTER CHIPS -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">필터 칩</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">검색/필터 툴바 · 모바일 상태 필터. Default → Active(선택) → Removable(적용됨, × 포함).</div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">DEFAULT</div><span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--text-body);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:999px;padding:9px 14px;">플랫폼 <span style="color:var(--text-subtle);">▾</span></span></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">ACTIVE</div><span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-body);font-weight:700;font-size:13px;color:#fff;background:var(--brand);border:1.5px solid var(--brand);border-radius:999px;padding:9px 14px;"><span style="width:8px;height:8px;border-radius:50%;background:#fff;"></span>면접중</span></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">SELECTED (subtle)</div><span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--violet-700);background:var(--brand-subtle);border:1.5px solid var(--brand);border-radius:999px;padding:9px 14px;">전형 상태 · 1</span></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">REMOVABLE</div><span style="display:inline-flex;align-items:center;gap:7px;font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--violet-700);background:var(--brand-subtle);border:1.5px solid var(--brand);border-radius:999px;padding:9px 14px;">원티드 <span style="opacity:.6;cursor:pointer;">×</span></span></div>
+    </div>
+  </div>
+
+  <!-- TECH TAGS -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">기술 스택 태그</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">읽기 전용(리스트/상세) vs 입력형(등록/수정, × 제거 가능).</div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;">
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">READ-ONLY</div><div style="display:flex;gap:6px;"><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);background:var(--ink-50);border:1px solid var(--border-subtle);border-radius:999px;padding:4px 10px;">React</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);background:var(--ink-50);border:1px solid var(--border-subtle);border-radius:999px;padding:4px 10px;">TypeScript</span></div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">INPUT (removable)</div><div style="display:flex;gap:6px;"><span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--violet-700);background:var(--brand-subtle);border-radius:999px;padding:5px 11px;">React <span style="opacity:.6;cursor:pointer;">×</span></span><span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--violet-700);background:var(--brand-subtle);border-radius:999px;padding:5px 11px;">Next.js <span style="opacity:.6;cursor:pointer;">×</span></span></div></div>
+    </div>
+  </div>
+
+  <!-- INPUTS -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">입력 필드</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 22px;">14px 라운드. Default · Focus · Filled · Error · Disabled. 등록/수정 드로어·시트 공통.</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:8px;">DEFAULT</div><div style="display:flex;align-items:center;font-family:var(--font-body);font-size:14px;color:var(--text-subtle);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:14px;padding:11px 13px;">회사명 입력</div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:8px;">FOCUS</div><div style="display:flex;align-items:center;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--brand);border-radius:14px;padding:11px 13px;box-shadow:0 0 0 3px var(--focus-ring);">토스<span style="width:1.5px;height:16px;background:var(--brand);margin-left:1px;"></span></div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:8px;">FILLED</div><div style="display:flex;align-items:center;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:14px;padding:11px 13px;">프론트엔드 엔지니어</div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--danger-500);margin-bottom:8px;">ERROR</div><div style="display:flex;align-items:center;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--danger-500);border-radius:14px;padding:11px 13px;box-shadow:0 0 0 3px var(--danger-100);"></div><div style="font-size:11.5px;color:var(--danger-500);margin-top:6px;">회사명은 필수예요</div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:8px;">DISABLED</div><div style="display:flex;align-items:center;font-family:var(--font-body);font-size:14px;color:var(--ink-400);background:var(--surface-sunken);border:1.5px solid var(--border-subtle);border-radius:14px;padding:11px 13px;opacity:.8;">저장 중…</div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:8px;">SEARCH</div><div style="position:relative;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text-subtle);"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><div style="font-family:var(--font-body);font-size:14px;color:var(--text-subtle);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:12px;padding:11px 13px 11px 38px;">회사 · 직무 검색</div></div></div>
+    </div>
+  </div>
+
+  <!-- TOGGLE + NAV -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;">
+    <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;">
+      <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">뷰 토글</div>
+      <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">리스트 ↔ 칸반. segmented control.</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:8px;">리스트 선택</div><div style="display:inline-flex;background:var(--surface-sunken);border-radius:999px;padding:3px;gap:2px;"><span style="font-family:var(--font-body);font-weight:700;font-size:13px;color:#fff;background:var(--brand);border-radius:999px;padding:6px 16px;">리스트</span><span style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--text-muted);padding:6px 16px;">칸반</span></div></div>
+        <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:8px;">칸반 선택</div><div style="display:inline-flex;background:var(--surface-sunken);border-radius:999px;padding:3px;gap:2px;"><span style="font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--text-muted);padding:6px 16px;">리스트</span><span style="font-family:var(--font-body);font-weight:700;font-size:13px;color:#fff;background:var(--brand);border-radius:999px;padding:6px 16px;">칸반</span></div></div>
+      </div>
+    </div>
+    <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;">
+      <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">사이드바 항목</div>
+      <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">Default · Active(현재 화면).</div>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:230px;">
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:12px;font-size:14px;font-weight:700;color:var(--violet-700);background:var(--brand-subtle);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"></rect><line x1="8" y1="8" x2="16" y2="8"></line><line x1="8" y1="12" x2="16" y2="12"></line><line x1="8" y1="16" x2="13" y2="16"></line></svg>지원 기록 <span style="font-family:var(--font-mono);font-size:10px;margin-left:auto;color:var(--violet-700);">ACTIVE</span></div>
+        <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:12px;font-size:14px;font-weight:600;color:var(--text-muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg>이력서 파일 <span style="font-family:var(--font-mono);font-size:10px;margin-left:auto;color:var(--text-subtle);">DEFAULT</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAB -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">등록 FAB (모바일)</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">스크롤 상단에선 라벨이 있는 확장형, 스크롤하면 원형으로 축소.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:center;">
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:10px;">EXPANDED (상단)</div><div style="display:inline-flex;align-items:center;gap:8px;height:54px;border-radius:999px;background:var(--brand);box-shadow:0 12px 26px rgba(91,46,229,.42);padding:0 20px 0 16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#fff;">지원 기록 등록</span></div></div>
+      <div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:10px;">COLLAPSED (스크롤 시)</div><div style="width:54px;height:54px;border-radius:50%;background:var(--brand);box-shadow:0 12px 26px rgba(91,46,229,.42);display:flex;align-items:center;justify-content:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div></div>
+    </div>
+  </div>
+
+  <!-- CARDS + STAT -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">카드 · 통계</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">기본 카드(흰 표면·1px 보더·sm 그림자·18px) / 통계 카드 / 분포 세그먼트 바.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:16px;align-items:stretch;">
+      <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:18px 20px;"><div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:10px;">총 지원</div><div style="font-family:var(--font-display);font-size:38px;line-height:1;color:var(--ink-950);">42</div></div>
+      <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:18px 20px;"><div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:10px;">서류 합격률</div><div style="font-family:var(--font-display);font-size:38px;line-height:1;color:var(--accent);">78<span style="font-size:18px;">%</span></div></div>
+      <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:18px 20px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:12px;">상태별 분포</div>
+        <div style="display:flex;gap:2px;height:14px;border-radius:999px;overflow:hidden;"><sc-for list="{{ statusColors }}" as="s" hint-placeholder-count="6"><div style="flex:1;background:{{ s.bar }};"></div></sc-for></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div style="background:var(--surface-brand-soft);border-radius:18px;padding:22px 26px;margin-top:26px;display:flex;gap:16px;align-items:flex-start;">
+    <img src="assets/tori-face-cutout.png" alt="" style="width:44px;height:44px;object-fit:contain;flex:none;filter:drop-shadow(0 6px 12px rgba(91,46,229,.3));">
+    <div style="font-size:13px;line-height:1.7;color:var(--text-body);">이 시스템은 <b>v1 1차 확정</b> 기준입니다. 모든 색·간격·그림자·서체는 Tori (Stillsee) 토큰을 참조하며, Synply 고유 정의는 6단계 전형 상태 색상 매핑뿐입니다. 새 화면은 위 컴포넌트와 상태 정의를 그대로 재사용하세요. — 변경 시 이 문서를 함께 갱신합니다.</div>
+  </div>
+
+  <!--SECTIONS_END-->
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals(){
+    const brandColors = [
+      {name:'Brand · Violet',  token:'--brand',   hex:'#5B2EE5', value:'var(--brand)'},
+      {name:'Brand Hover',     token:'--brand-hover', hex:'#4A22C4', value:'var(--brand-hover)'},
+      {name:'Accent · Orange', token:'--accent',  hex:'#FF892B', value:'var(--accent)'},
+      {name:'Brand Subtle',    token:'--brand-subtle', hex:'violet 8%', value:'var(--brand-subtle)'},
+    ];
+    const inkRamp = ['50','100','200','300','400','500','700','900','950'].map(s=>({step:'ink-'+s, value:'var(--ink-'+s+')'}));
+    const surfaces = [
+      {name:'Page',        token:'--surface-page',       value:'var(--surface-page)'},
+      {name:'Card',        token:'--surface-card',       value:'var(--surface-card)'},
+      {name:'Sunken',      token:'--surface-sunken',     value:'var(--surface-sunken)'},
+      {name:'Brand Soft',  token:'--surface-brand-soft', value:'var(--surface-brand-soft)'},
+    ];
+    const statusColors = [
+      {label:'지원완료',   bg:'var(--ink-100)',      fg:'var(--ink-700)',     bar:'#C2BED2', den:'제외', denColor:'var(--text-subtle)'},
+      {label:'서류합격',   bg:'var(--info-100)',     fg:'var(--info-500)',    bar:'#2F7DEB', den:'포함', denColor:'var(--success-500)'},
+      {label:'면접중',     bg:'var(--brand-subtle)', fg:'var(--violet-700)',  bar:'#5B2EE5', den:'포함', denColor:'var(--success-500)'},
+      {label:'최종합격',   bg:'var(--success-100)',  fg:'var(--success-500)', bar:'#1FA971', den:'포함', denColor:'var(--success-500)'},
+      {label:'서류불합격', bg:'var(--danger-100)',   fg:'var(--danger-500)',  bar:'#E2453E', den:'제외', denColor:'var(--text-subtle)'},
+      {label:'면접불합격', bg:'#7E211D',             fg:'#FFFFFF',            bar:'#7E211D', den:'포함', denColor:'var(--success-500)'},
+    ];
+    const D='var(--font-display)', B='var(--font-body)', M='var(--font-mono)';
+    const typeScale = [
+      {sample:'대시보드 / 지원 기록',     ff:B, fw:800, size:'27px', ls:'-.02em', role:'Page title',   spec:'Noto 800 · 27'},
+      {sample:'아직 등록된 지원 기록이 없어요', ff:B, fw:800, size:'21px', ls:'-.01em', role:'Section/Empty', spec:'Noto 800 · 21'},
+      {sample:'토스 · 프론트엔드 엔지니어', ff:B, fw:700, size:'14px', ls:'0',     role:'Row title',    spec:'Noto 700 · 14'},
+      {sample:'한 곳에서 지원 현황을 봅니다', ff:B, fw:400, size:'15px', ls:'0',     role:'Body',         spec:'Noto 400 · 15'},
+      {sample:'42',                       ff:D, fw:400, size:'42px', ls:'0',     role:'Stat number',  spec:'Do Hyeon · 42'},
+      {sample:'DASHBOARD · 지원 기록 관리', ff:M, fw:400, size:'11px', ls:'.08em', role:'Eyebrow',      spec:'Mono · 11 · CAPS'},
+      {sample:'06.10 · 1.2MB',            ff:M, fw:400, size:'12px', ls:'0',     role:'Meta/Date',    spec:'Mono · 12'},
+    ];
+    const btnBase = 'display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-body);font-weight:700;font-size:14px;border-radius:999px;padding:11px 20px;';
+    const buttonRows = [
+      { name:'Primary', label:'지원 기록 등록',
+        default:  btnBase+'color:#fff;background:var(--brand);border:1.5px solid var(--brand);box-shadow:var(--shadow-brand);',
+        hover:    btnBase+'color:#fff;background:var(--brand-hover);border:1.5px solid var(--brand-hover);box-shadow:var(--shadow-brand);transform:translateY(-1px);',
+        pressed:  btnBase+'color:#fff;background:var(--brand-hover);border:1.5px solid var(--brand-hover);transform:scale(.97);box-shadow:var(--shadow-xs);',
+        disabled: btnBase+'color:#fff;background:var(--ink-200);border:1.5px solid var(--ink-200);opacity:.7;' },
+      { name:'Secondary', label:'수정',
+        default:  btnBase+'color:var(--violet-700);background:var(--surface-card);border:1.5px solid var(--border-brand);',
+        hover:    btnBase+'color:var(--violet-700);background:var(--brand-subtle);border:1.5px solid var(--brand);transform:translateY(-1px);',
+        pressed:  btnBase+'color:var(--violet-700);background:var(--brand-subtle);border:1.5px solid var(--brand);transform:scale(.97);',
+        disabled: btnBase+'color:var(--ink-400);background:var(--surface-card);border:1.5px solid var(--border-subtle);opacity:.7;' },
+      { name:'Ghost', label:'취소',
+        default:  btnBase+'color:var(--text-body);background:transparent;border:1.5px solid transparent;',
+        hover:    btnBase+'color:var(--ink-900);background:var(--surface-sunken);border:1.5px solid transparent;',
+        pressed:  btnBase+'color:var(--ink-900);background:var(--ink-100);border:1.5px solid transparent;transform:scale(.97);',
+        disabled: btnBase+'color:var(--ink-400);background:transparent;border:1.5px solid transparent;opacity:.7;' },
+      { name:'Danger', label:'삭제',
+        default:  btnBase+'color:#fff;background:var(--danger-500);border:1.5px solid var(--danger-500);box-shadow:0 10px 24px rgba(226,69,62,.28);',
+        hover:    btnBase+'color:#fff;background:#C63A34;border:1.5px solid #C63A34;transform:translateY(-1px);box-shadow:0 10px 24px rgba(226,69,62,.28);',
+        pressed:  btnBase+'color:#fff;background:#C63A34;border:1.5px solid #C63A34;transform:scale(.97);box-shadow:var(--shadow-xs);',
+        disabled: btnBase+'color:#fff;background:var(--danger-500);border:1.5px solid var(--danger-500);opacity:.45;' },
+    ];
+    return { brandColors, inkRamp, surfaces, statusColors, typeScale, buttonRows };
+  }
+}
+</script>
+</body>
+</html>
