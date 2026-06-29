@@ -2,27 +2,28 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    "rootDir": "./src", // src 폴더를 컴파일 대상의 루트로 지정 (ts 파일 위치)
+    "outDir": "./dist", // ts -> js 변환 결과물 저장 위치
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "esnext",
-    "types": [],
+    "module": "nodenext", // Node.js의 ESM/CommonJS 판별 규칙을 따르는 모듈 설정 ->     Node.js의 최신 ESM/CommonJS 규칙을 따름
+    "target": "esnext", // 컴파일 결과물의 ECMAScript 버전 ( 최신 자바스크립트 문법 사용 )
+    "types": ["node"], // 어떤 전역 타입을 사용할지 -> 이 프로젝트는 node.js 환경에서 실행되니 node의 전역 타입을 알고있어야함을 명시
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
 
     // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    // 빌드 산출물 보조 파일
+    "sourceMap": true, // 소스맵 생성 -> 디버깅 시 원래 ts 코드를 볼 수 있음 (원래는 dist/server.js 기준으로 에러 위치를 보여줘서 어떤 ts 파일의 몇 번째 줄에서 에러가 났는지 알기 어려움)
+    "declaration": false, // 타입 정의 파일 생성 -> 외부에서 우리 라이브러리를 가져다쓸때 타입 정보를 제공하기 위함, 우리 프로젝트는 외부에서 가져다 쓸 일이 없으므로 false
+    "declarationMap": false, // 타입 정의 파일의 소스맵 생성 -> declaration이 false이므로 false
 
     // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true, // 배열/객체 인덱스 접근을 더 안전하게 만들어줌 -> const first = arr[0]; 결과를 그냥 string이 아니라 string | undefined로 추론
+    "exactOptionalPropertyTypes": true, // optional 필드를 더 엄격하게 처리 -> optional 필드에 명시적으로 undefined를 할당하는 것을 허용하지 않음
 
     // Style Options
     // "noImplicitReturns": true,
@@ -33,12 +34,13 @@
     // "noPropertyAccessFromIndexSignature": true,
 
     // Recommended Options
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-  }
+    "strict": true, // 모든 엄격한 타입 체크 옵션을 켬
+    "verbatimModuleSyntax": true, // import/export 문법을 TS가 임의로 바꾸지 않음
+    "isolatedModules": true, // 각 파일이 독립적으로 변환 가능해야 함을 검사 -> Next.js, tsx, SWC 같은 도구와 잘 맞는 옵션
+    "noUncheckedSideEffectImports": true, // 값 없이 실행만 하는 import의 경로/타입 문제를 더 엄격하게 확인
+    "moduleDetection": "force", // 모듈 시스템 강제 적용 -> 전역 스코프 오염을 줄여줌
+    "skipLibCheck": true // 라이브러리 타입 체크 건너뛰기 -> 빌드 속도와 외부 라이브러리 타입 충돌 방지
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

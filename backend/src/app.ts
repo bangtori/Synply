@@ -1,11 +1,19 @@
 import express from 'express';
 import cors from 'cors';
+import { env } from 'process';
+import { errorHandler } from './middlewares/error.js';
 
 export const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: env.frontendUrl,
+  }),
+);
 app.use(express.json());
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+
+app.use(errorHandler);
