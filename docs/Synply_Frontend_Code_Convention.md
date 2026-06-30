@@ -667,7 +667,7 @@ export const STATUS_CONFIG: Record<ApplicationStatus, StatusMeta> = {
     badgeClassName: 'bg-danger-100 text-danger-500',
     chartColorVar: 'var(--danger-500)',
     includedInDocumentPassRateNumerator: false,
-    includedInDocumentPassRateDenominator: false,
+    includedInDocumentPassRateDenominator: true, // 서류 심사는 완료됨 → 분모 포함(분자 제외)
   },
   INTERVIEW_FAILED: {
     label: '면접 불합격',
