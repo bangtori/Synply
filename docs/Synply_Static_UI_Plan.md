@@ -1,7 +1,11 @@
-# Synply 정적 UI 구현 계획 (데스크탑)
+# Synply 정적 UI 구현 계획
 
-> 목적: 디자인 시안(`docs/design_draft`) 기반 **데스크탑 정적 UI** 구현 계획.
+> 목적: 디자인 시안(`docs/design_draft`) 기반 **정적 UI**(데스크탑 → 인증 → 모바일) 구현 계획.
 > 관련 문서: 코드 컨벤션 `docs/Synply_Frontend_Code_Convention.md`, UI 시안 개요 `docs/IMPLEMENTATION_PLAN.md`, 시안 핸드오프 `docs/design_draft/README.md`.
+>
+> **현재 상태 (2026-07-01)**: 데스크탑 정적 UI(Phase A~D) + selector 테스트 완료, 빌드·린트 통과. 시각 대조는 사용자 진행 중.
+> **다음**: §12 확정 순서 — ① 인증 화면(사용자 시안 제공) → ② 모바일 → ③ 마무리 → ④ 기능(사용자 담당).
+> 아래 §1~§11은 완료된 **데스크탑 단계**의 기록이다.
 
 ## 1. 배경 (Context)
 
@@ -106,18 +110,55 @@ page.tsx (thin) → XxxScreen.tsx (컨테이너: 목 데이터 import + 표현�
 
 ---
 
-## 11. 진행 체크리스트
+## 11. 진행 체크리스트 (데스크탑 단계 — 완료)
 
-- [ ] Phase A — constants(STATUS_CONFIG)·types·`lib/mock`·`lib/selectors`
-- [ ] Phase B — `utils/cn` + 공유 프리미티브 + feedback 다이얼로그 (+ 임시 design-system 페이지)
-- [ ] Phase C — DesktopShell · PageHeader · `(main)/layout.tsx`
-- [ ] Phase D-1 대시보드
-- [ ] Phase D-2 지원 리스트(표) + ViewToggle
-- [ ] Phase D-3 칸반(6컬럼)
-- [ ] Phase D-4 지원 상세(2단)
-- [ ] Phase D-5 이력서 관리
-- [ ] Phase D-6 등록/수정 드로어 + 공유 폼
-- [ ] Phase D-7 필터 툴바
-- [ ] Phase D-8 빈 상태 ×2
-- [ ] Phase D-9 공용 다이얼로그
-- [ ] Phase E — build/lint/시각 대조 (+ selector 테스트)
+- [x] Phase A — constants(STATUS_CONFIG)·types·`lib/mock`·`lib/selectors`
+- [x] Phase B — `utils/cn` + 공유 프리미티브 + feedback 다이얼로그 (+ 임시 design-system 페이지)
+- [x] Phase C — DesktopShell · PageHeader · `(main)/layout.tsx`
+- [x] Phase D-1 대시보드
+- [x] Phase D-2 지원 리스트(표) + ViewToggle
+- [x] Phase D-3 칸반(6컬럼)
+- [x] Phase D-4 지원 상세(2단)
+- [x] Phase D-5 이력서 관리
+- [x] Phase D-6 등록/수정 드로어 + 공유 폼 (+ `components/domain/applications/`로 승격)
+- [x] Phase D-7 필터 툴바
+- [x] Phase D-8 빈 상태 ×2 (`?empty=first|no-result` 프리뷰 훅)
+- [x] Phase D-9 공용 다이얼로그
+- [x] Phase E — build/lint 통과 + selector 테스트 18개 통과 / 시각 대조는 사용자 진행 중
+- [x] 표 접근성 보강(이력서 `<table>` 전환, 지원 리스트 ARIA role)
+
+> 임시 `app/design-system/page.tsx`는 사용자 요청으로 아직 유지(③ 마무리에서 제거).
+
+---
+
+## 12. 다음 단계 (확정 순서)
+
+데스크탑 정적 UI 완료 후 합의된 진행 순서. 정적 UI(①②③)는 어시스턴트가, 기능(④)은 사용자가 담당한다.
+
+### ① 인증 화면 정적 UI — 사용자가 시안 제공 → 구현
+- 로그인/회원가입 화면. **시안을 받은 뒤** 레이아웃·필드 확정.
+- 인증 화면은 중앙 카드형이면 보통 **반응형 1벌로 충분**(앱 셸처럼 데스크탑/모바일 분리 불필요). 시안이 플랫폼별로 다르면 그때 `.mobile` 분리.
+- 정적까지만 — 실제 Supabase Auth 연동은 ④.
+
+### ② 모바일 정적 UI
+- `hooks/usePlatform.ts` (matchMedia ~768px, 첫 렌더 `null` → 하이드레이션 안전).
+- `components/shells/MobileShell.tsx` (상단 헤더 + 하단 탭바 3개 + FAB 스크롤 확장↔축소).
+- `components/layout/MobileSheet.tsx` (바텀시트 + grabber).
+- `app/(main)/layout.tsx`에 `usePlatform` 분기 추가(Desktop/Mobile 셸).
+- 앱 화면별 `*.mobile.tsx` 추가(컨테이너·데스크탑 뷰는 불변):
+  - 대시보드(2×2) / 리스트(카드) / 칸반(상태 필터칩 가로스크롤 + 단일 컬럼) / 상세(단일 컬럼) / 이력서(카드 + 업로드) / 등록·수정(바텀시트) / 필터(바텀시트) / 빈 상태 2종.
+
+### ③ 정적 UI 마무리 (어시스턴트 역할 종료)
+- 전 화면 양 플랫폼 점검(768px 경계 전환, 하이드레이션 안전).
+- 임시 `app/design-system/page.tsx` 제거.
+- → 여기까지가 정적 UI 담당의 끝.
+
+### ④ 기능 레이어 (사용자 담당)
+권장 순서. 원하면 인프라 골격(1번)은 어시스턴트가 스캐폴딩 지원 가능.
+
+1. **인프라**: `lib/api/apiClient`·`ApiError`·`authToken`, `lib/query/queryClient`·`queryKeys`, `<Providers>`(TanStack Query) root 연결.
+2. **Auth**: Supabase 로그인/회원가입/세션, 로그아웃 시 `queryClient.clear()`.
+3. **데이터 연결**: `services/` + `hooks/`(Query/Mutation) → 컨테이너의 `lib/mock` import를 데이터 훅으로 교체(뷰 불변).
+4. **폼**: Zod 스키마 + RHF + submit/검증/저장.
+5. **검색·필터·정렬·뷰**: search params 동기화(`?view` 포함) + 실제 필터링.
+6. **삭제/연결 해제, 상태 변경 optimistic update, 파일 업로드(multipart)**.
