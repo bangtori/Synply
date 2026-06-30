@@ -19,6 +19,7 @@ export interface ApplicationDetailDesktopViewProps {
   selectedStatus: ApplicationStatus;
   onSelectStatus: (status: ApplicationStatus) => void;
   onEdit: () => void;
+  onDelete: () => void;
 }
 
 function InfoRow({ label, children }: { label: string; children: ReactNode }) {
@@ -36,6 +37,7 @@ export function ApplicationDetailDesktopView({
   selectedStatus,
   onSelectStatus,
   onEdit,
+  onDelete,
 }: ApplicationDetailDesktopViewProps) {
   return (
     <>
@@ -56,6 +58,7 @@ export function ApplicationDetailDesktopView({
             variant="ghost"
             size="sm"
             className="text-danger-500 hover:bg-danger-100"
+            onClick={onDelete}
           >
             삭제
           </Button>

@@ -7,6 +7,7 @@ import type { Application } from '@/types/application';
 import type { SubmissionFile } from '@/types/submissionFile';
 
 import { ApplicationFormDrawer } from '@/components/domain/applications/ApplicationFormDrawer';
+import { ConfirmDialog } from '@/components/feedback/ConfirmDialog';
 
 import { ApplicationDetailDesktopView } from './ApplicationDetailScreen.desktop';
 
@@ -25,6 +26,7 @@ export function ApplicationDetailScreen({
     application.status,
   );
   const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   return (
     <>
@@ -34,6 +36,7 @@ export function ApplicationDetailScreen({
         selectedStatus={selectedStatus}
         onSelectStatus={setSelectedStatus}
         onEdit={() => setEditOpen(true)}
+        onDelete={() => setDeleteOpen(true)}
       />
       <ApplicationFormDrawer
         open={editOpen}
@@ -41,6 +44,13 @@ export function ApplicationDetailScreen({
         application={application}
         submissionFile={submissionFile}
         onClose={() => setEditOpen(false)}
+      />
+      <ConfirmDialog
+        open={deleteOpen}
+        title="지원 기록을 삭제할까요?"
+        description="되돌릴 수 없어요. 연결된 결과 메모도 함께 삭제됩니다."
+        onConfirm={() => setDeleteOpen(false)}
+        onCancel={() => setDeleteOpen(false)}
       />
     </>
   );
