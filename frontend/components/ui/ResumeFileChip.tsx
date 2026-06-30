@@ -19,7 +19,7 @@ export function ResumeFileChip({
     return (
       <span
         className={cn(
-          'inline-flex items-center rounded-full border border-dashed border-orange-300 bg-orange-50 px-2.5 py-1 text-xs font-medium text-orange-600',
+          'inline-flex items-center rounded-full border border-dashed border-orange-300 bg-orange-50 px-2.5 py-1 text-2xs font-medium text-orange-600',
           className,
         )}
       >
@@ -31,7 +31,7 @@ export function ResumeFileChip({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 text-[13px] text-text-body',
+        'inline-flex items-center gap-1.5 text-xs text-text-body',
         className,
       )}
     >

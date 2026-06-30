@@ -21,7 +21,7 @@ export function TechTag({
     return (
       <span
         className={cn(
-          'inline-flex items-center gap-1 rounded-full bg-brand-subtle px-2 py-0.5 font-mono text-xs font-semibold text-violet-700',
+          'inline-flex items-center gap-1 rounded-full bg-brand-subtle px-2 py-0.5 font-mono text-2xs font-semibold text-violet-700',
           className,
         )}
       >
@@ -41,7 +41,7 @@ export function TechTag({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border border-border-subtle bg-ink-50 px-2 py-0.5 font-mono text-[11px] text-text-muted',
+        'inline-flex items-center rounded-full border border-border-subtle bg-ink-50 px-2 py-0.5 font-mono text-3xs text-text-muted',
         className,
       )}
     >

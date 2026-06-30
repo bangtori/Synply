@@ -46,7 +46,7 @@ export function EmptyState({
         )
       )}
       <div className="flex flex-col gap-2">
-        <h2 className="text-[21px] font-extrabold text-ink-950">{title}</h2>
+        <h2 className="text-section font-extrabold text-ink-950">{title}</h2>
         {description && (
           <p className="max-w-sm text-sm leading-relaxed text-text-muted">
             {description}

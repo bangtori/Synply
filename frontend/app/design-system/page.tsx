@@ -27,7 +27,7 @@ import { getStatusDistribution } from '@/lib/selectors/statusDistribution';
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-4">
-      <h2 className="font-mono text-[11px] uppercase tracking-[0.08em] text-text-subtle">
+      <h2 className="font-mono text-3xs uppercase tracking-[0.08em] text-text-subtle">
         {title}
       </h2>
       <div className="flex flex-wrap items-center gap-3 rounded-[18px] border border-border-subtle bg-surface-card p-5">
@@ -48,10 +48,10 @@ export default function DesignSystemPage() {
     <main className="min-h-screen bg-surface-page px-10 py-12">
       <div className="mx-auto flex max-w-4xl flex-col gap-10">
         <header>
-          <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-text-subtle">
+          <p className="font-mono text-3xs uppercase tracking-[0.08em] text-text-subtle">
             Design System
           </p>
-          <h1 className="font-display text-[32px] text-ink-950">
+          <h1 className="font-display text-3xl text-ink-950">
             Synply 프리미티브
           </h1>
         </header>

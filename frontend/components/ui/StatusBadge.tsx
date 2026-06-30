@@ -15,7 +15,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full px-[0.85em] py-[0.55em] text-xs font-bold leading-none',
+        'inline-flex items-center rounded-full px-[0.85em] py-[0.55em] text-2xs font-bold leading-none',
         meta.badgeClassName,
         className,
       )}

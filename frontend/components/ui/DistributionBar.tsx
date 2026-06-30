@@ -29,15 +29,15 @@ export function DistributionBar({ items, className }: DistributionBarProps) {
               style={{ background: item.colorVar }}
               aria-hidden
             />
-            <span className="text-[12px] text-text-muted">{item.label}</span>
-            <span className="font-mono text-[12px] font-medium text-text-body">
+            <span className="text-2xs text-text-muted">{item.label}</span>
+            <span className="font-mono text-2xs font-medium text-text-body">
               {item.count}
             </span>
           </li>
         ))}
       </ul>
       {total === 0 && (
-        <p className="text-[12px] text-text-subtle">데이터 없음</p>
+        <p className="text-2xs text-text-subtle">데이터 없음</p>
       )}
     </div>
   );

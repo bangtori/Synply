@@ -22,7 +22,7 @@ const VARIANT_CLASS: Record<FilterChipVariant, string> = {
 };
 
 const BASE =
-  'inline-flex items-center gap-1.5 rounded-full border-[1.5px] px-3.5 py-[9px] text-[13px] font-semibold transition';
+  'inline-flex items-center gap-1.5 rounded-full border-[1.5px] px-3.5 py-[9px] text-xs font-semibold transition';
 
 export function FilterChip({
   children,

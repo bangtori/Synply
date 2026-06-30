@@ -32,7 +32,7 @@ export function ViewToggle({ value, onChange, className }: ViewToggleProps) {
             aria-selected={active}
             onClick={() => onChange(option.value)}
             className={cn(
-              'rounded-full px-3 py-1 text-[13px] transition',
+              'rounded-full px-3 py-1 text-xs transition',
               active
                 ? 'bg-brand font-bold text-white'
                 : 'font-semibold text-text-muted',

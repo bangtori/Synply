@@ -32,7 +32,7 @@ export function DesktopShell({ children }: DesktopShellProps) {
       <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col border-r border-border-subtle bg-surface-card py-[22px]">
         {/* 워드마크 (로고 에셋은 추후 추가) */}
         <div className="px-[22px]">
-          <span className="font-display text-[23px] text-ink-950">Synply</span>
+          <span className="font-display text-xl text-ink-950">Synply</span>
         </div>
 
         <nav className="mt-[30px] flex flex-col gap-[3px] px-3">
@@ -64,7 +64,7 @@ export function DesktopShell({ children }: DesktopShellProps) {
           <Avatar initial="민" />
           <div className="min-w-0">
             <p className="truncate text-sm font-bold text-ink-900">김민지</p>
-            <p className="font-mono text-[11px] uppercase tracking-[0.04em] text-text-subtle">
+            <p className="font-mono text-3xs uppercase tracking-[0.04em] text-text-subtle">
               Job Seeker
             </p>
           </div>

@@ -24,7 +24,7 @@ export function Card({ title, action, children, className }: CardProps) {
       {hasHeader && (
         <div className="mb-4 flex items-center justify-between">
           {title && (
-            <h2 className="text-[15px] font-bold text-ink-900">{title}</h2>
+            <h2 className="text-sm font-bold text-ink-900">{title}</h2>
           )}
           {action}
         </div>

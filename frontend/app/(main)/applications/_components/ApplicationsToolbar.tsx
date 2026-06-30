@@ -26,12 +26,12 @@ export function ApplicationsToolbar({
         <FilterChip>이력서 버전</FilterChip>
 
         <div className="ml-auto flex items-center gap-3">
-          <span className="text-[13px] text-text-muted">정렬 · 지원일 ↓</span>
+          <span className="text-xs text-text-muted">정렬 · 지원일 ↓</span>
           <ViewToggle value={view} onChange={onViewChange} />
         </div>
       </div>
 
-      <p className="text-[13px] text-text-muted">
+      <p className="text-xs text-text-muted">
         전체 지원 기록{' '}
         <span className="font-bold text-ink-900">{total}</span>건
       </p>

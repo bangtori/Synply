@@ -35,7 +35,7 @@ export function ConfirmDialog({
           <AlertTriangle size={22} strokeWidth={2} aria-hidden />
         </span>
         <div className="flex flex-col gap-1.5">
-          <h2 id={titleId} className="text-[17px] font-extrabold text-ink-950">
+          <h2 id={titleId} className="text-base font-extrabold text-ink-950">
             {title}
           </h2>
           {description && (

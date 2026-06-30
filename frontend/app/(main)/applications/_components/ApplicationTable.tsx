@@ -31,7 +31,7 @@ export function ApplicationTable({
         {HEADERS.map((header) => (
           <div
             key={header}
-            className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.07em] text-text-subtle"
+            className="font-mono text-3xs font-semibold uppercase tracking-[0.07em] text-text-subtle"
           >
             {header}
           </div>
@@ -49,10 +49,10 @@ export function ApplicationTable({
           <div className="flex min-w-0 items-center gap-3">
             <Avatar initial={application.companyInitial} size={36} />
             <div className="min-w-0">
-              <p className="truncate text-[13.5px] font-bold text-ink-900">
+              <p className="truncate text-sm font-bold text-ink-900">
                 {application.companyName}
               </p>
-              <p className="truncate text-[11.5px] text-text-muted">
+              <p className="truncate text-2xs text-text-muted">
                 {application.positionTitle}
               </p>
             </div>
@@ -62,7 +62,7 @@ export function ApplicationTable({
             <StatusBadge status={application.status} />
           </div>
 
-          <div className="text-[13px] text-text-body">
+          <div className="text-xs text-text-body">
             {application.platform}
           </div>
 
@@ -72,7 +72,7 @@ export function ApplicationTable({
             ))}
           </div>
 
-          <div className="font-mono text-[12px] text-text-muted">
+          <div className="font-mono text-2xs text-text-muted">
             {formatMonthDay(application.appliedAt)}
           </div>
 

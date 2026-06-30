@@ -29,6 +29,21 @@
   --font-display: "Do Hyeon", "Noto Sans KR", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
+  /* ---- Font size scale (typography.css --fs-*) ---- */
+  --text-3xs: var(--fs-3xs); /* 11px */
+  --text-2xs: var(--fs-2xs); /* 12px */
+  --text-xs: var(--fs-xs); /* 13px */
+  --text-sm: var(--fs-sm); /* 14px */
+  --text-base: var(--fs-md); /* 16px */
+  --text-lg: var(--fs-lg); /* 18px */
+  --text-xl: var(--fs-xl); /* 22px */
+  --text-2xl: var(--fs-2xl); /* 28px */
+  --text-3xl: var(--fs-3xl); /* 36px */
+  /* 시안 고유 디스플레이 역할 */
+  --text-section: 1.3125rem; /* 21px — 섹션/빈상태 제목 */
+  --text-title: 1.6875rem; /* 27px — 페이지 타이틀 */
+  --text-stat: 2.625rem; /* 42px — 통계 숫자(Do Hyeon) */
+
   /* ---- Color scale: violet ---- */
   --color-violet-50: var(--violet-50);
   --color-violet-100: var(--violet-100);

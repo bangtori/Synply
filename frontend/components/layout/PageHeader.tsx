@@ -25,10 +25,10 @@ export function PageHeader({
       )}
     >
       <div>
-        <p className="mb-[7px] font-mono text-[11px] uppercase tracking-[0.08em] text-text-subtle">
+        <p className="mb-[7px] font-mono text-3xs uppercase tracking-[0.08em] text-text-subtle">
           {eyebrow}
         </p>
-        <h1 className="text-[27px] font-extrabold tracking-[-0.02em] text-ink-950">
+        <h1 className="text-title font-extrabold tracking-[-0.02em] text-ink-950">
           {title}
         </h1>
       </div>

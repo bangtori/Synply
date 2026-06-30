@@ -26,15 +26,15 @@ export function StatCard({
         className,
       )}
     >
-      <p className="text-[11px] font-medium text-text-muted">{label}</p>
+      <p className="text-3xs font-medium text-text-muted">{label}</p>
       <p
         className={cn(
-          'mt-2 font-display text-[42px] leading-none',
+          'mt-2 font-display text-stat leading-none',
           accent ? 'text-accent' : 'text-ink-950',
         )}
       >
         {value}
-        {suffix && <span className="ml-0.5 text-[20px]">{suffix}</span>}
+        {suffix && <span className="ml-0.5 text-lg">{suffix}</span>}
       </p>
     </div>
   );

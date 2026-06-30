@@ -19,7 +19,7 @@ export function RecentApplicationsCard({ recent }: RecentApplicationsCardProps) 
       action={
         <Link
           href="/applications"
-          className="inline-flex items-center gap-0.5 text-[13px] font-semibold text-brand"
+          className="inline-flex items-center gap-0.5 text-xs font-semibold text-brand"
         >
           전체 보기
           <ChevronRight size={15} strokeWidth={2.5} aria-hidden />
@@ -35,16 +35,16 @@ export function RecentApplicationsCard({ recent }: RecentApplicationsCardProps) 
             <div className="flex min-w-0 items-center gap-3">
               <Avatar initial={application.companyInitial} size={36} />
               <div className="min-w-0">
-                <p className="truncate text-[13.5px] font-bold text-ink-900">
+                <p className="truncate text-sm font-bold text-ink-900">
                   {application.companyName}
                 </p>
-                <p className="truncate text-[11.5px] text-text-muted">
+                <p className="truncate text-2xs text-text-muted">
                   {application.positionTitle}
                 </p>
               </div>
             </div>
             <StatusBadge status={application.status} />
-            <span className="font-mono text-[11.5px] text-text-muted">
+            <span className="font-mono text-2xs text-text-muted">
               {formatMonthDay(application.appliedAt)}
             </span>
           </li>

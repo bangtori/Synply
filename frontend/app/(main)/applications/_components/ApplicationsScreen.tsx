@@ -5,6 +5,7 @@ import { useState } from 'react';
 import type { ViewMode } from '@/components/ui/ViewToggle';
 import { mockApplications } from '@/lib/mock/applications';
 import { mockSubmissionFiles } from '@/lib/mock/submissionFiles';
+import { getKanbanColumns } from '@/lib/selectors/kanbanColumns';
 
 import { ApplicationsDesktopView } from './ApplicationsScreen.desktop';
 
@@ -17,11 +18,13 @@ export function ApplicationsScreen() {
   const fileNameById = Object.fromEntries(
     mockSubmissionFiles.map((file) => [file.id, file.fileName]),
   );
+  const kanbanColumns = getKanbanColumns(applications);
 
   return (
     <ApplicationsDesktopView
       applications={applications}
       fileNameById={fileNameById}
+      kanbanColumns={kanbanColumns}
       view={view}
       onViewChange={setView}
     />
