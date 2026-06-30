@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { Avatar } from '@/components/ui/Avatar';
 import { ResumeFileChip } from '@/components/ui/ResumeFileChip';
 import { StatusBadge } from '@/components/ui/StatusBadge';
@@ -39,8 +41,9 @@ export function ApplicationTable({
       </div>
 
       {applications.map((application) => (
-        <div
+        <Link
           key={application.id}
+          href={`/applications/${application.id}`}
           className={cn(
             'grid items-center gap-2 border-b border-border-subtle px-6 py-3 transition last:border-0 hover:bg-violet-50',
             COLS,
@@ -86,7 +89,7 @@ export function ApplicationTable({
               }
             />
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

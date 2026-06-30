@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 
 import { ResumeFileChip } from '@/components/ui/ResumeFileChip';
@@ -15,12 +16,14 @@ export function ApplicationKanbanCard({
 }: ApplicationKanbanCardProps) {
   return (
     <article className="rounded-[12px] border border-border-subtle bg-surface-card p-3 shadow-card">
-      <p className="truncate text-sm font-bold text-ink-900">
-        {application.companyName}
-      </p>
-      <p className="truncate text-2xs text-text-muted">
-        {application.positionTitle}
-      </p>
+      <Link href={`/applications/${application.id}`} className="block">
+        <p className="truncate text-sm font-bold text-ink-900 hover:text-brand">
+          {application.companyName}
+        </p>
+        <p className="truncate text-2xs text-text-muted">
+          {application.positionTitle}
+        </p>
+      </Link>
       <p className="mt-2 font-mono text-3xs text-text-subtle">
         {application.platform} · {formatMonthDay(application.appliedAt)}
       </p>
