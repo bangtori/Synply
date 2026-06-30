@@ -6,6 +6,8 @@ import type { Application } from '@/types/application';
 
 import { ApplicationKanban } from './ApplicationKanban';
 import { ApplicationTable } from './ApplicationTable';
+import { ApplicationsEmptyFirst } from './ApplicationsEmptyFirst';
+import { ApplicationsEmptyNoResult } from './ApplicationsEmptyNoResult';
 import { ApplicationsToolbar } from './ApplicationsToolbar';
 
 export interface ApplicationsDesktopViewProps {
@@ -15,6 +17,7 @@ export interface ApplicationsDesktopViewProps {
   view: ViewMode;
   onViewChange: (view: ViewMode) => void;
   onRegister: () => void;
+  emptyState?: 'first' | 'no-result';
 }
 
 export function ApplicationsDesktopView({
@@ -24,6 +27,7 @@ export function ApplicationsDesktopView({
   view,
   onViewChange,
   onRegister,
+  emptyState,
 }: ApplicationsDesktopViewProps) {
   return (
     <>
@@ -34,22 +38,30 @@ export function ApplicationsDesktopView({
       />
 
       <div className="flex flex-col gap-4 px-8 pb-8">
-        <ApplicationsToolbar
-          view={view}
-          onViewChange={onViewChange}
-          total={applications.length}
-        />
-
-        {view === 'list' ? (
-          <ApplicationTable
-            applications={applications}
-            fileNameById={fileNameById}
-          />
+        {emptyState === 'first' ? (
+          <ApplicationsEmptyFirst onRegister={onRegister} />
+        ) : emptyState === 'no-result' ? (
+          <ApplicationsEmptyNoResult />
         ) : (
-          <ApplicationKanban
-            columns={kanbanColumns}
-            fileNameById={fileNameById}
-          />
+          <>
+            <ApplicationsToolbar
+              view={view}
+              onViewChange={onViewChange}
+              total={applications.length}
+            />
+
+            {view === 'list' ? (
+              <ApplicationTable
+                applications={applications}
+                fileNameById={fileNameById}
+              />
+            ) : (
+              <ApplicationKanban
+                columns={kanbanColumns}
+                fileNameById={fileNameById}
+              />
+            )}
+          </>
         )}
       </div>
     </>
