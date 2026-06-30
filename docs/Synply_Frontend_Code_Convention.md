@@ -2,7 +2,7 @@
 
 > 대상: Synply MVP 프론트엔드  
 > 스택: Next.js App Router + React + TypeScript + Tailwind CSS + TanStack Query + React Hook Form + Zod  
-> 목적: REST API 계약 기반 프론트엔드 구현, 플랫폼별 UI 분기, 디자인 토큰 기반 UI 구현을 일관되게 유지한다.
+> 목적: Synply 프론트엔드의 라우팅 구조, API 호출 방식, 플랫폼별 UI 분기, 디자인 토큰 사용 방식을 일관되게 유지한다.
 
 ---
 
@@ -10,10 +10,11 @@
 
 Synply 프론트엔드는 다음 원칙을 따른다.
 
-- `app/`은 라우팅과 레이아웃 중심으로 얇게 유지한다.
-- 실제 기능 코드는 `features/`에 둔다.
+- `app/`은 라우팅·레이아웃 중심으로 얇게 유지하되, 라우트 전용 코드는 해당 route의 `_components/`에 colocate한다.
+- 여러 라우트가 공유하는 코드만 top-level 폴더(`components/`, `services/`, `hooks/`, `lib/` 등)로 분리한다.
 - 공유 UI는 `components/`에 둔다.
-- 도메인 상수, selector, formatter, mapper는 `lib/`에 둔다.
+- REST API 호출 함수는 `services/`에 둔다.
+- 도메인 상수는 `constants/`, selector·mapper·클라이언트는 `lib/`에 둔다.
 - 컴포넌트에서 `fetch`를 직접 호출하지 않는다.
 - 서비스 데이터는 Express REST API를 통해 호출한다.
 - 로그인/회원가입은 Supabase Auth SDK를 사용한다.
@@ -21,7 +22,7 @@ Synply 프론트엔드는 다음 원칙을 따른다.
 - API/프론트 타입은 `camelCase`를 사용한다.
 - enum key는 `UPPER_SNAKE_CASE`를 사용한다.
 - 디자인 토큰을 단일 진실 소스로 사용한다.
-- 플랫폼별로 화면 구조가 다르면 `view.desktop.tsx` / `view.mobile.tsx`로 분리한다.
+- 플랫폼별로 화면 구조가 다르면 `*.desktop.tsx` / `*.mobile.tsx`로 분리한다.
 - MVP에서는 Zustand를 사용하지 않는다. 전역 클라이언트 상태가 복잡해질 경우 후순위로 도입한다.
 
 ---
@@ -29,114 +30,107 @@ Synply 프론트엔드는 다음 원칙을 따른다.
 ## 1. 폴더 구조
 
 ```txt
-src/
-├── app/
+frontend/
+├── app/                          # 라우팅 + 라우트 전용 코드 colocation
+│   ├── layout.tsx
+│   ├── globals.css
 │   ├── (auth)/
 │   │   ├── login/
-│   │   │   └── page.tsx
+│   │   │   ├── page.tsx
+│   │   │   └── _components/
 │   │   └── signup/
-│   │       └── page.tsx
-│   ├── (main)/
-│   │   ├── layout.tsx
-│   │   ├── dashboard/
-│   │   │   └── page.tsx
-│   │   ├── applications/
-│   │   │   └── page.tsx
-│   │   └── submission-files/
-│   │       └── page.tsx
-│   ├── layout.tsx
-│   └── globals.css
-├── features/
-│   ├── auth/
-│   ├── applications/
-│   ├── submission-files/
-│   ├── dashboard/
-│   └── filter-options/
-├── components/
+│   │       ├── page.tsx
+│   │       └── _components/
+│   └── (main)/
+│       ├── layout.tsx
+│       ├── dashboard/
+│       │   ├── page.tsx
+│       │   └── _components/
+│       ├── applications/
+│       │   ├── page.tsx
+│       │   ├── [id]/
+│       │   │   ├── page.tsx
+│       │   │   └── _components/
+│       │   └── _components/
+│       └── submission-files/
+│           ├── page.tsx
+│           └── _components/
+├── components/                   # 라우트 무관 공유 UI
 │   ├── ui/
 │   ├── layout/
 │   ├── shells/
 │   └── feedback/
-├── lib/
-│   ├── api/
-│   ├── constants/
-│   ├── domain/
-│   ├── mappers/
-│   ├── query/
-│   ├── selectors/
-│   ├── supabase/
-│   └── utils/
-├── hooks/
-└── types/
+├── config/                       # env 등 설정
+├── constants/                    # 도메인 상수 (STATUS_CONFIG 등)
+├── hooks/                        # 공유 훅 (usePlatform, 데이터 훅)
+├── lib/                          # api, query, supabase, selectors, mappers
+├── schemas/                      # Zod 스키마
+├── services/                     # REST API 호출 함수
+├── styles/                       # 전역 스타일 (디자인 토큰 CSS)
+│   └── tokens/                   # 시안 토큰 6종 (globals.css에서 import)
+├── types/                        # 공유 타입
+└── utils/                        # cn, date, format
 ```
 
 ### 1-1. `app/`
 
-Next.js App Router의 라우트, 레이아웃, 전역 CSS만 둔다.
+Next.js App Router의 라우트, 레이아웃, 전역 CSS와 **라우트 전용 코드**(`_components/`)를 둔다.
 
 - `page.tsx`는 가능하면 얇게 유지한다.
-- 라우트별 실제 UI/상태/데이터 처리는 feature의 화면 컨테이너에 위임한다.
+- 라우트별 실제 UI/상태/데이터 처리는 같은 폴더 `_components/`의 화면 컨테이너에 위임한다.
+- `_components/`(밑줄 접두)는 Next.js private folder로 라우팅되지 않는다. 그 라우트에서만 쓰는 컴포넌트·화면 컨테이너·플랫폼 뷰를 colocate한다.
 - `page.tsx`, `layout.tsx`는 Next.js 규칙에 따라 `default export`를 사용한다.
 - 그 외 컴포넌트는 `named export`를 사용한다.
 
 예시:
 
 ```tsx
-// src/app/(main)/applications/page.tsx
-import { ApplicationsScreen } from '@/features/applications/screens/ApplicationsScreen';
+// app/(main)/applications/page.tsx
+import { ApplicationsScreen } from './_components/ApplicationsScreen';
 
 export default function ApplicationsPage() {
   return <ApplicationsScreen />;
 }
 ```
 
-### 1-2. `features/`
+### 1-2. 라우트 전용 코드 (`_components/`)
 
-도메인 기능 단위 코드를 둔다.
+도메인별 `features/` 레이어를 두지 않는다. 그 라우트에서만 쓰는 화면 컨테이너·플랫폼 뷰·전용 컴포넌트는 해당 route 폴더의 `_components/`에 colocate한다.
 
 ```txt
-features/applications/
-├── api/
-│   └── applications.api.ts
-├── hooks/
-│   ├── useApplicationsQuery.ts
-│   ├── useApplicationDetailQuery.ts
-│   ├── useCreateApplicationMutation.ts
-│   ├── useUpdateApplicationMutation.ts
-│   ├── useDeleteApplicationMutation.ts
-│   └── useUpdateApplicationStatusMutation.ts
-├── screens/
-│   └── ApplicationsScreen/
-│       ├── index.tsx
-│       ├── view.desktop.tsx
-│       └── view.mobile.tsx
-├── components/
-│   ├── ApplicationCard.tsx
-│   ├── ApplicationTable.tsx
-│   ├── ApplicationForm.tsx
-│   ├── ApplicationDrawer.tsx
-│   ├── ApplicationSheet.tsx
-│   ├── ApplicationFilters.tsx
-│   └── ApplicationStatusBadge.tsx
-├── schemas/
-│   └── application.schema.ts
-├── types/
-│   └── application.types.ts
-└── utils/
-    └── application.mapper.ts
+app/(main)/applications/
+├── page.tsx                       # 얇은 라우트 진입점
+├── [id]/
+│   ├── page.tsx
+│   └── _components/
+│       ├── ApplicationDetailScreen.tsx
+│       ├── ApplicationDetailScreen.desktop.tsx
+│       └── ApplicationDetailScreen.mobile.tsx
+└── _components/
+    ├── ApplicationsScreen.tsx          # 컨테이너 (데이터/상태/핸들러)
+    ├── ApplicationsScreen.desktop.tsx  # 데스크탑 뷰
+    ├── ApplicationsScreen.mobile.tsx   # 모바일 뷰
+    ├── ApplicationTable.tsx
+    ├── ApplicationCard.tsx
+    ├── ApplicationForm.tsx
+    ├── ApplicationDrawer.tsx
+    ├── ApplicationSheet.tsx
+    └── ApplicationFilters.tsx
 ```
 
-역할:
+배치 판단 기준:
 
-| 폴더 | 역할 |
+| 위치 | 대상 |
 |---|---|
-| `api/` | Express REST API 호출 함수 |
-| `hooks/` | TanStack Query query/mutation hook |
-| `screens/` | 화면 단위 컨테이너 및 플랫폼별 view |
-| `components/` | feature 전용 UI 컴포넌트 |
-| `schemas/` | Zod schema |
-| `types/` | feature 전용 TypeScript 타입 |
-| `utils/` | feature 전용 mapper/formatter |
+| route `_components/` | 그 라우트에서만 쓰는 컴포넌트·화면 컨테이너·플랫폼 뷰 |
+| `components/` | 2개 이상 라우트가 공유하는 UI |
+| `services/` | REST API 호출 함수 |
+| `hooks/` | 공유 훅, TanStack Query 훅 |
+| `schemas/` | Zod 스키마 |
+| `types/` | 공유 타입 |
+| `constants/` | 도메인 상수 |
+| `lib/` | apiClient·queryClient·supabase·selector·mapper |
+| `utils/` | 순수 유틸 (cn, date, format) |
 
 ### 1-3. `components/`
 
@@ -170,36 +164,39 @@ components/
 
 ### 1-4. `lib/`
 
-도메인 전역 로직과 공통 유틸을 둔다.
+앱 전역 인프라(클라이언트)와 도메인 파생 로직을 하위 폴더로 정리한다.
 
 ```txt
 lib/
 ├── api/
-│   ├── apiClient.ts
+│   ├── apiClient.ts      # fetch 래퍼 (Authorization 주입, 에러 처리)
 │   ├── ApiError.ts
-│   └── authToken.ts
-├── constants/
-│   ├── applicationStatus.ts
-│   └── fileType.ts
-├── domain/
-│   ├── application.ts
-│   └── submissionFile.ts
-├── mappers/
-│   ├── application.mapper.ts
-│   └── submissionFile.mapper.ts
+│   └── authToken.ts      # Supabase access token 취득
 ├── query/
 │   ├── queryClient.ts
 │   └── queryKeys.ts
-├── selectors/
-│   ├── applicationStats.selector.ts
-│   └── dashboard.selector.ts
 ├── supabase/
-│   └── authClient.ts
-└── utils/
-    ├── cn.ts
-    ├── date.ts
-    └── format.ts
+│   └── authClient.ts     # Supabase Auth client
+├── selectors/            # 통계·합격률 등 selector
+└── mappers/              # API 응답 ↔ 프론트 타입 mapper
 ```
+
+### 1-5. 기타 top-level 폴더
+
+| 폴더 | 역할 | 예시 파일 |
+|---|---|---|
+| `services/` | Express REST API 호출 함수 모음 | `applications.ts`, `submissionFiles.ts` |
+| `hooks/` | 공유 훅 + TanStack Query 훅 | `usePlatform.ts`, `useApplicationsQuery.ts` |
+| `constants/` | 도메인 상수 | `applicationStatus.ts`, `fileType.ts` |
+| `schemas/` | Zod 스키마 | `application.schema.ts` |
+| `types/` | 공유 타입 | `application.ts` |
+| `utils/` | 순수 유틸 | `cn.ts`, `date.ts`, `format.ts` |
+| `config/` | 환경 변수 등 설정 | `env.ts` |
+| `styles/` | 전역 스타일 | `tokens/*.css` (시안 디자인 토큰, `app/globals.css`에서 import) |
+
+> **`services/`는 백엔드 service 계층이 아니다.** 프론트엔드에서 Express REST API를 호출하는 함수 모음이며, 컴포넌트는 직접 fetch하지 않고 `hooks → services → apiClient` 흐름을 따른다.
+>
+> **`hooks/`**: `usePlatform` 같은 전역 훅은 루트에 둔다. TanStack Query 훅도 초반에는 루트에 두되, 훅이 많아지면 `hooks/applications/`, `hooks/submission-files/`, `hooks/dashboard/`처럼 도메인별 하위 폴더로 분리한다.
 
 ---
 
@@ -207,16 +204,15 @@ lib/
 
 | 종류 | 규칙 | 예시 |
 |---|---|---|
-| 폴더 | kebab-case 또는 도메인 단위 폴더명으로 통일 | `submission-files/`, `application-detail/` |
+| 폴더 | kebab-case | `submission-files/`, `_components/` |
 | 컴포넌트 파일 | PascalCase | `StatusBadge.tsx`, `DesktopShell.tsx` |
-| 화면 컨테이너 | `index.tsx` | `ApplicationsScreen/index.tsx` |
-| 플랫폼 뷰 | `view.desktop.tsx`, `view.mobile.tsx` | `ApplicationsScreen/view.desktop.tsx` |
+| 화면 컨테이너 | `<Name>Screen.tsx` | `ApplicationsScreen.tsx` |
+| 플랫폼 뷰 | `<Name>Screen.desktop.tsx` / `.mobile.tsx` | `ApplicationsScreen.desktop.tsx` |
 | hook | camelCase + `use` 접두 | `useApplicationsQuery.ts` |
-| API 함수 파일 | `<domain>.api.ts` | `applications.api.ts` |
+| service 파일 | `<domain>.ts` | `applications.ts` |
 | schema 파일 | `<domain>.schema.ts` | `application.schema.ts` |
-| 타입 파일 | `*.types.ts` | `application.types.ts` |
-| 유틸/selector | camelCase 또는 역할명 | `selectors.ts`, `application.mapper.ts` |
-| CSS Module | `<Component>.module.css` | `StatusBadge.module.css` |
+| 타입 파일 | `<domain>.ts` | `application.ts` |
+| 유틸/selector | camelCase 또는 역할명 | `selectors.ts`, `mappers.ts` |
 
 상대경로가 깊어지는 import는 금지한다.
 
@@ -267,7 +263,7 @@ import { ApplicationCard } from './ApplicationCard';
 타입은 `import type`을 사용한다.
 
 ```ts
-import type { ApplicationStatus } from '@/features/applications/types/application.types';
+import type { ApplicationStatus } from '@/types/application';
 ```
 
 ---
@@ -294,7 +290,7 @@ import type { ApplicationStatus } from '@/features/applications/types/applicatio
 
 ```tsx
 // app/(main)/applications/page.tsx
-import { ApplicationsScreen } from '@/features/applications/screens/ApplicationsScreen';
+import { ApplicationsScreen } from './_components/ApplicationsScreen';
 
 export default function ApplicationsPage() {
   return <ApplicationsScreen />;
@@ -302,13 +298,13 @@ export default function ApplicationsPage() {
 ```
 
 ```tsx
-// features/applications/screens/ApplicationsScreen/index.tsx
+// app/(main)/applications/_components/ApplicationsScreen.tsx
 'use client';
 
 import { usePlatform } from '@/hooks/usePlatform';
 
-import { ApplicationsDesktopView } from './view.desktop';
-import { ApplicationsMobileView } from './view.mobile';
+import { ApplicationsDesktopView } from './ApplicationsScreen.desktop';
+import { ApplicationsMobileView } from './ApplicationsScreen.mobile';
 
 export function ApplicationsScreen() {
   const platform = usePlatform();
@@ -346,9 +342,9 @@ Synply는 단순 반응형 재배치가 아니라 플랫폼별 UI 구조가 달�
 화면은 다음 구조를 따른다.
 
 ```txt
-screen container
-├── view.desktop.tsx
-└── view.mobile.tsx
+<Name>Screen.tsx              # 컨테이너
+├── <Name>Screen.desktop.tsx
+└── <Name>Screen.mobile.tsx
 ```
 
 컨테이너가 데이터, 상태, event handler를 관리하고, 플랫폼 view는 props로 받은 데이터를 렌더링한다.
@@ -396,22 +392,22 @@ Frontend → Express REST API → Supabase DB/Storage
 
 ```txt
 Component
-→ feature hook
-→ feature api function
-→ apiClient
+→ hook (hooks/)
+→ service function (services/)
+→ apiClient (lib/api/apiClient)
 → Express REST API
 ```
 
 예시:
 
 ```ts
-// features/applications/api/applications.api.ts
+// services/applications.ts
 import { apiClient } from '@/lib/api/apiClient';
 
 import type {
   ApplicationListParams,
   ApplicationListResponse,
-} from '../types/application.types';
+} from '@/types/application';
 
 export async function fetchApplications(
   params: ApplicationListParams,
@@ -470,7 +466,7 @@ export const queryKeys = {
 
 ### 7-2. Feature hook
 
-컴포넌트에서 `useQuery` / `useMutation`을 직접 쓰지 않고, feature hook으로 감싼다.
+컴포넌트에서 `useQuery` / `useMutation`을 직접 쓰지 않고, `hooks/`의 hook으로 감싼다.
 
 ```ts
 export function useApplicationsQuery(filters: ApplicationListParams) {
@@ -542,8 +538,8 @@ MVP에서는 Zustand를 사용하지 않는다.
 폼은 React Hook Form + Zod를 사용한다.
 
 ```txt
-schema: features/<domain>/schemas
-form component: feature/components
+schema: schemas/
+form component: route _components/
 submit 처리: drawer/sheet/container
 ```
 
@@ -640,42 +636,42 @@ export type StatusMeta = {
 export const STATUS_CONFIG: Record<ApplicationStatus, StatusMeta> = {
   APPLIED: {
     label: '지원 완료',
-    badgeClassName: 'applied',
+    badgeClassName: 'bg-ink-100 text-ink-700',
     chartColorVar: 'var(--ink-400)',
     includedInDocumentPassRateNumerator: false,
     includedInDocumentPassRateDenominator: false,
   },
   DOCUMENT_PASSED: {
     label: '서류 합격',
-    badgeClassName: 'documentPassed',
+    badgeClassName: 'bg-info-100 text-info-500',
     chartColorVar: 'var(--info-500)',
     includedInDocumentPassRateNumerator: true,
     includedInDocumentPassRateDenominator: true,
   },
   INTERVIEWING: {
     label: '면접 중',
-    badgeClassName: 'interviewing',
+    badgeClassName: 'bg-brand-subtle text-violet-700',
     chartColorVar: 'var(--brand)',
     includedInDocumentPassRateNumerator: true,
     includedInDocumentPassRateDenominator: true,
   },
   FINAL_PASSED: {
     label: '최종 합격',
-    badgeClassName: 'finalPassed',
+    badgeClassName: 'bg-success-100 text-success-500',
     chartColorVar: 'var(--success-500)',
     includedInDocumentPassRateNumerator: true,
     includedInDocumentPassRateDenominator: true,
   },
   DOCUMENT_FAILED: {
     label: '서류 불합격',
-    badgeClassName: 'documentFailed',
+    badgeClassName: 'bg-danger-100 text-danger-500',
     chartColorVar: 'var(--danger-500)',
     includedInDocumentPassRateNumerator: false,
     includedInDocumentPassRateDenominator: false,
   },
   INTERVIEW_FAILED: {
     label: '면접 불합격',
-    badgeClassName: 'interviewFailed',
+    badgeClassName: 'bg-danger-deep text-white',
     chartColorVar: 'var(--danger-deep)',
     includedInDocumentPassRateNumerator: true,
     includedInDocumentPassRateDenominator: true,
@@ -720,32 +716,28 @@ export function getDocumentPassRate(
 
 ## 12. 스타일 컨벤션
 
-Synply UI는 CSS Modules + 디자인 토큰을 사용한다.
+Synply UI는 Tailwind CSS v4 + 디자인 토큰을 사용한다.
 
 ### 12-1. 기본 원칙
 
-- 색, 간격, 서체, 그림자, radius는 `var(--token)`을 사용한다.
-- hex 하드코딩 금지.
-- 컴포넌트 스타일은 CSS Module에 둔다.
-- 글로벌 CSS는 token import와 최소 reset만 둔다.
+- 시안 토큰 CSS 6종을 `app/globals.css`에서 import하고, Tailwind `@theme`에 `var(--token)`으로 매핑한다.
+- 색, 간격, 서체, 그림자, radius는 토큰 기반 Tailwind 유틸리티(`bg-brand`, `rounded-card` 등) 또는 `var(--token)`을 사용한다.
+- hex 하드코딩 금지. 시안의 인라인 hex는 토큰의 시각화일 뿐이다.
+- **CSS Modules는 사용하지 않는다.**
+- 글로벌 CSS는 Tailwind import·토큰 import·최소 reset만 둔다.
+- 조건부 클래스는 `cn()` 유틸로 합성한다.
 - 인라인 style은 동적 CSS 변수 주입이 필요한 경우에만 허용한다.
 
-```css
-.badge {
-  border-radius: var(--radius-pill);
-  font-weight: 700;
-  font-size: 12px;
-}
-
-.interviewing {
-  background: var(--brand-subtle);
-  color: var(--violet-700);
-}
+```tsx
+// 토큰 기반 Tailwind 유틸리티
+<span className="rounded-full px-2.5 py-1 text-xs font-bold bg-brand-subtle text-violet-700">
+  면접 중
+</span>
 ```
 
 ### 12-2. 동적 색상
 
-JS에서 hex 문자열을 들고 다니지 않는다.
+JS에서 hex 문자열을 들고 다니지 않는다. 런타임 값으로 색을 바꿔야 하면 CSS 변수로 주입한다.
 
 허용:
 
@@ -799,7 +791,7 @@ BlockedDialog
 
 - 도메인 로직을 직접 갖지 않는다.
 - 도메인 값이 필요한 경우 config를 주입받거나 도메인 wrapper를 따로 둔다.
-- CSS Module과 token만 사용한다.
+- Tailwind 유틸리티와 token만 사용한다.
 - variant/size/status는 명확한 union 타입으로 정의한다.
 
 예시:
@@ -815,6 +807,19 @@ export interface ButtonProps {
   children: React.ReactNode;
 }
 
+const VARIANT_CLASS: Record<ButtonVariant, string> = {
+  primary: 'bg-brand text-white hover:bg-brand-hover',
+  secondary: 'border border-border-default bg-surface-card text-text-body',
+  ghost: 'text-text-body hover:bg-surface-sunken',
+  danger: 'bg-danger-500 text-white',
+};
+
+const SIZE_CLASS: Record<ButtonSize, string> = {
+  sm: 'h-8 px-3 text-sm',
+  md: 'h-10 px-4',
+  lg: 'h-12 px-5 text-lg',
+};
+
 export function Button({
   variant = 'primary',
   size = 'md',
@@ -823,7 +828,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={cn(styles.button, styles[variant], styles[size])}
+      className={cn('rounded-full font-bold transition', VARIANT_CLASS[variant], SIZE_CLASS[size])}
       disabled={disabled}
     >
       {children}
@@ -838,13 +843,13 @@ export function Button({
 
 ### 14-1. 화면 컨테이너
 
-각 화면은 컨테이너 하나와 플랫폼 view 두 개로 구성한다.
+각 화면은 컨테이너 하나와 플랫폼 view 두 개로 구성하고, 해당 route의 `_components/`에 colocate한다.
 
 ```txt
-DashboardScreen/
-├── index.tsx
-├── view.desktop.tsx
-└── view.mobile.tsx
+app/(main)/dashboard/_components/
+├── DashboardScreen.tsx          # 컨테이너
+├── DashboardScreen.desktop.tsx
+└── DashboardScreen.mobile.tsx
 ```
 
 컨테이너 역할:
@@ -956,26 +961,13 @@ ApplicationForm.test.tsx
 
 ## 18. PR 전 체크리스트
 
-- [ ] `app/`은 라우팅 중심으로 얇게 유지했는가?
-- [ ] 기능 코드는 `features/`에 배치했는가?
-- [ ] 컴포넌트에서 `fetch`를 직접 호출하지 않았는가?
-- [ ] API 호출이 `feature/api` → `apiClient`를 거치는가?
-- [ ] React Query hook을 feature hook으로 감쌌는가?
-- [ ] DB snake_case가 프론트 타입으로 넘어오지 않았는가?
-- [ ] API/FE 타입은 camelCase인가?
-- [ ] enum key는 UPPER_SNAKE_CASE인가?
-- [ ] 상태 색/라벨/합격률 규칙은 `STATUS_CONFIG` 한 곳에서만 관리되는가?
-- [ ] 서류 합격률 공식은 확정 규칙과 일치하는가?
-- [ ] 색/간격/서체/그림자/radius는 `var(--token)`을 사용하는가?
-- [ ] hex 하드코딩이 없는가?
-- [ ] IBM Plex Mono에 한글을 사용하지 않았는가?
-- [ ] Do Hyeon은 워드마크/통계 큰 숫자에만 사용했는가?
-- [ ] 한 화면에 Primary 버튼은 하나만 있는가?
-- [ ] `"use client"`는 필요한 컨테이너/셸/인터랙션 컴포넌트에만 있는가?
-- [ ] `page.tsx`/`layout.tsx`를 제외하고 named export를 사용했는가?
-- [ ] `React.FC`를 사용하지 않았는가?
-- [ ] 깊은 상대경로 대신 `@/` alias를 사용했는가?
-- [ ] Desktop/Mobile 화면 구조가 필요한 곳에서 `view.desktop.tsx` / `view.mobile.tsx`로 분리되었는가?
-- [ ] Dialog/Sheet/Drawer 접근성을 고려했는가?
-- [ ] 로그아웃 시 React Query 캐시 clear 정책이 있는가?
-- [ ] FormData 요청에서 Content-Type을 수동으로 지정하지 않았는가?
+- [ ] 라우트 전용 코드는 route `_components/`에, 공유 코드만 top-level에 배치했는가?
+- [ ] API 호출이 `hooks → services → apiClient` 흐름을 따르는가? (컴포넌트 직접 `fetch` 금지)
+- [ ] API/FE 타입은 camelCase, enum key는 UPPER_SNAKE_CASE인가? (DB snake_case 유출 없음)
+- [ ] 상태 색/라벨/합격률은 `STATUS_CONFIG` 한 곳에서만 관리되고, 합격률 공식이 확정 규칙과 일치하는가?
+- [ ] 스타일이 Tailwind + 토큰 기반인가? (hex 하드코딩·CSS Modules 없음)
+- [ ] 폰트 규칙을 지켰는가? (Mono에 한글 금지, Do Hyeon은 워드마크/통계 숫자만)
+- [ ] 플랫폼 구조가 다른 화면은 `*.desktop.tsx` / `*.mobile.tsx`로 분리했는가?
+- [ ] `"use client"`는 인터랙션이 필요한 컨테이너/셸/오버레이에만 있는가?
+- [ ] `page.tsx`/`layout.tsx` 외에는 named export를 사용하고, `@/` alias를 사용했는가?
+- [ ] Dialog/Sheet/Drawer 접근성, 로그아웃 시 캐시 clear 정책을 지켰는가?

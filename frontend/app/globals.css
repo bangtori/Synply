@@ -1,26 +1,120 @@
+/* 웹폰트(@import url)는 다른 규칙보다 먼저 와야 하므로 tailwind import보다 위에 둔다 */
+@import "../styles/tokens/fonts.css";
 @import "tailwindcss";
 
+/* ============================================================
+   디자인 토큰 (단일 진실 소스) — docs/design_draft 시안에서 이식
+   ============================================================ */
+@import "../styles/tokens/colors.css";
+@import "../styles/tokens/typography.css";
+@import "../styles/tokens/spacing.css";
+@import "../styles/tokens/elevation.css";
+@import "../styles/tokens/base.css";
+
+/* 프로젝트 확장 토큰 (시안 토큰에 없는 값) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --danger-deep: #7e211d; /* 면접 불합격 배지 배경 */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ============================================================
+   Tailwind @theme 매핑
+   토큰 CSS 변수를 Tailwind 유틸리티(bg-brand, text-text-body 등)로 노출한다.
+   값은 var(--token)을 참조해 단일 진실 소스를 유지한다.
+   ============================================================ */
+@theme {
+  /* ---- Fonts (Tailwind 네임스페이스와 토큰명이 겹쳐 stack을 직접 지정) ---- */
+  --font-sans: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Do Hyeon", "Noto Sans KR", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  /* ---- Color scale: violet ---- */
+  --color-violet-50: var(--violet-50);
+  --color-violet-100: var(--violet-100);
+  --color-violet-200: var(--violet-200);
+  --color-violet-300: var(--violet-300);
+  --color-violet-400: var(--violet-400);
+  --color-violet-500: var(--violet-500);
+  --color-violet-600: var(--violet-600);
+  --color-violet-700: var(--violet-700);
+  --color-violet-800: var(--violet-800);
+  --color-violet-900: var(--violet-900);
+  --color-violet-950: var(--violet-950);
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* ---- Color scale: orange ---- */
+  --color-orange-50: var(--orange-50);
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+  --color-orange-300: var(--orange-300);
+  --color-orange-400: var(--orange-400);
+  --color-orange-500: var(--orange-500);
+  --color-orange-600: var(--orange-600);
+  --color-orange-700: var(--orange-700);
+
+  /* ---- Color scale: ink (neutral) ---- */
+  --color-ink-50: var(--ink-50);
+  --color-ink-100: var(--ink-100);
+  --color-ink-200: var(--ink-200);
+  --color-ink-300: var(--ink-300);
+  --color-ink-400: var(--ink-400);
+  --color-ink-500: var(--ink-500);
+  --color-ink-600: var(--ink-600);
+  --color-ink-700: var(--ink-700);
+  --color-ink-800: var(--ink-800);
+  --color-ink-900: var(--ink-900);
+  --color-ink-950: var(--ink-950);
+
+  /* ---- Semantic status ---- */
+  --color-success-500: var(--success-500);
+  --color-success-100: var(--success-100);
+  --color-warning-500: var(--warning-500);
+  --color-warning-100: var(--warning-100);
+  --color-danger-500: var(--danger-500);
+  --color-danger-100: var(--danger-100);
+  --color-danger-deep: var(--danger-deep);
+  --color-info-500: var(--info-500);
+  --color-info-100: var(--info-100);
+
+  /* ---- Brand aliases ---- */
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-active: var(--brand-active);
+  --color-brand-subtle: var(--brand-subtle);
+  --color-brand-subtle-2: var(--brand-subtle-2);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+
+  /* ---- Text ---- */
+  --color-text-strong: var(--text-strong);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-link: var(--text-link);
+  --color-text-on-brand: var(--text-on-brand);
+  --color-text-on-accent: var(--text-on-accent);
+
+  /* ---- Surfaces ---- */
+  --color-surface-page: var(--surface-page);
+  --color-surface-card: var(--surface-card);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-brand: var(--surface-brand);
+  --color-surface-brand-soft: var(--surface-brand-soft);
+  --color-surface-accent-soft: var(--surface-accent-soft);
+  --color-surface-inverse: var(--surface-inverse);
+
+  /* ---- Borders ---- */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-brand: var(--border-brand);
+
+  /* ---- Radius (토큰명 충돌 회피: 다른 토큰 참조 또는 리터럴) ---- */
+  --radius-card: var(--radius-xl);
+  --radius-input: var(--radius-md);
+  --radius-pill: 999px;
+
+  /* ---- Shadow ---- */
+  --shadow-card: var(--shadow-sm);
+  --shadow-pop: var(--shadow-md);
+  --shadow-brand: 0 12px 28px rgba(91, 46, 229, 0.34);
 }
