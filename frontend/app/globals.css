@@ -118,3 +118,26 @@
   --shadow-pop: var(--shadow-md);
   --shadow-brand: 0 12px 28px rgba(91, 46, 229, 0.34);
 }
+
+/* ============================================================
+   마스코트 float 애니메이션 (EmptyState 첫 진입)
+   ============================================================ */
+@keyframes toriFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-tori-float {
+  animation: toriFloat 6.5s var(--ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-tori-float {
+    animation: none;
+  }
+}
