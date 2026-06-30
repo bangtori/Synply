@@ -57,6 +57,7 @@ frontend/
 │           └── _components/
 ├── components/                   # 라우트 무관 공유 UI
 │   ├── ui/
+│   ├── domain/                   # 도메인 공유 UI (여러 라우트 공유)
 │   ├── layout/
 │   ├── shells/
 │   └── feedback/
@@ -149,6 +150,11 @@ components/
 │   ├── DistributionBar/
 │   ├── EmptyState/
 │   └── ResumeFileChip/
+├── domain/
+│   └── applications/
+│       ├── ApplicationFormDrawer.tsx
+│       ├── ApplicationForm.tsx
+│       └── ApplicationStatusSelector.tsx
 ├── shells/
 │   ├── DesktopShell.tsx
 │   └── MobileShell.tsx
@@ -161,6 +167,16 @@ components/
     ├── BlockedDialog.tsx
     └── Toast.tsx
 ```
+
+### 도메인 공유 컴포넌트
+
+여러 라우트에서 공유되는 도메인 UI는 `components/domain/<domain>/`에 둔다.
+
+예:
+- `components/domain/applications/ApplicationFormDrawer.tsx`
+- `components/domain/applications/ApplicationForm.tsx`
+
+`app/**/_components`는 route-local 전용이므로 다른 라우트에서 import하지 않는다.
 
 ### 1-4. `lib/`
 

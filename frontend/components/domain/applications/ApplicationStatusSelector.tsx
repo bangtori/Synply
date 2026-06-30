@@ -5,13 +5,16 @@ import {
 } from '@/constants/applicationStatus';
 import { cn } from '@/utils/cn';
 
-export interface StatusSelectorProps {
+export interface ApplicationStatusSelectorProps {
   selected: ApplicationStatus;
   onSelect: (status: ApplicationStatus) => void;
 }
 
 // 전형 상태 선택 칩. 선택된 상태는 배지 색, 나머지는 아웃라인. (표현용)
-export function StatusSelector({ selected, onSelect }: StatusSelectorProps) {
+export function ApplicationStatusSelector({
+  selected,
+  onSelect,
+}: ApplicationStatusSelectorProps) {
   return (
     <div className="flex flex-wrap gap-2">
       {STATUS_ORDER.map((status) => {

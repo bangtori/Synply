@@ -10,15 +10,15 @@ import { TechTag } from '@/components/ui/TechTag';
 import type { ApplicationStatus } from '@/constants/applicationStatus';
 import type { Application } from '@/types/application';
 import type { SubmissionFile } from '@/types/submissionFile';
+import { ApplicationStatusSelector } from '@/components/domain/applications/ApplicationStatusSelector';
 import { formatDot } from '@/utils/date';
-
-import { StatusSelector } from './StatusSelector';
 
 export interface ApplicationDetailDesktopViewProps {
   application: Application;
   submissionFile: SubmissionFile | null;
   selectedStatus: ApplicationStatus;
   onSelectStatus: (status: ApplicationStatus) => void;
+  onEdit: () => void;
 }
 
 function InfoRow({ label, children }: { label: string; children: ReactNode }) {
@@ -35,6 +35,7 @@ export function ApplicationDetailDesktopView({
   submissionFile,
   selectedStatus,
   onSelectStatus,
+  onEdit,
 }: ApplicationDetailDesktopViewProps) {
   return (
     <>
@@ -48,7 +49,7 @@ export function ApplicationDetailDesktopView({
           지원 기록
         </Link>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" size="sm">
+          <Button variant="secondary" size="sm" onClick={onEdit}>
             수정
           </Button>
           <Button
@@ -78,7 +79,10 @@ export function ApplicationDetailDesktopView({
         {/* 좌측 */}
         <div className="flex flex-col gap-6">
           <Card title="전형 상태">
-            <StatusSelector selected={selectedStatus} onSelect={onSelectStatus} />
+            <ApplicationStatusSelector
+              selected={selectedStatus}
+              onSelect={onSelectStatus}
+            />
           </Card>
 
           <Card title="공고 정보">

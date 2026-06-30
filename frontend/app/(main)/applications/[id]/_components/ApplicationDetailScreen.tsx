@@ -6,6 +6,8 @@ import type { ApplicationStatus } from '@/constants/applicationStatus';
 import type { Application } from '@/types/application';
 import type { SubmissionFile } from '@/types/submissionFile';
 
+import { ApplicationFormDrawer } from '@/components/domain/applications/ApplicationFormDrawer';
+
 import { ApplicationDetailDesktopView } from './ApplicationDetailScreen.desktop';
 
 export interface ApplicationDetailScreenProps {
@@ -22,13 +24,24 @@ export function ApplicationDetailScreen({
   const [selectedStatus, setSelectedStatus] = useState<ApplicationStatus>(
     application.status,
   );
+  const [editOpen, setEditOpen] = useState(false);
 
   return (
-    <ApplicationDetailDesktopView
-      application={application}
-      submissionFile={submissionFile}
-      selectedStatus={selectedStatus}
-      onSelectStatus={setSelectedStatus}
-    />
+    <>
+      <ApplicationDetailDesktopView
+        application={application}
+        submissionFile={submissionFile}
+        selectedStatus={selectedStatus}
+        onSelectStatus={setSelectedStatus}
+        onEdit={() => setEditOpen(true)}
+      />
+      <ApplicationFormDrawer
+        open={editOpen}
+        mode="edit"
+        application={application}
+        submissionFile={submissionFile}
+        onClose={() => setEditOpen(false)}
+      />
+    </>
   );
 }

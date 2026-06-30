@@ -12,19 +12,21 @@ export interface DashboardDesktopViewProps {
   stats: ApplicationStats;
   distribution: StatusDistributionItem[];
   recent: Application[];
+  onRegister: () => void;
 }
 
 export function DashboardDesktopView({
   stats,
   distribution,
   recent,
+  onRegister,
 }: DashboardDesktopViewProps) {
   return (
     <>
       <PageHeader
         eyebrow="Dashboard"
         title="대시보드"
-        action={<Button>지원 기록 등록</Button>}
+        action={<Button onClick={onRegister}>지원 기록 등록</Button>}
       />
 
       <div className="flex flex-col gap-6 px-8 pb-8">

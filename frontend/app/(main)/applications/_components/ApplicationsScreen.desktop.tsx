@@ -14,6 +14,7 @@ export interface ApplicationsDesktopViewProps {
   kanbanColumns: KanbanColumn[];
   view: ViewMode;
   onViewChange: (view: ViewMode) => void;
+  onRegister: () => void;
 }
 
 export function ApplicationsDesktopView({
@@ -22,13 +23,14 @@ export function ApplicationsDesktopView({
   kanbanColumns,
   view,
   onViewChange,
+  onRegister,
 }: ApplicationsDesktopViewProps) {
   return (
     <>
       <PageHeader
         eyebrow="Applications"
         title="지원 기록"
-        action={<Button>지원 기록 등록</Button>}
+        action={<Button onClick={onRegister}>지원 기록 등록</Button>}
       />
 
       <div className="flex flex-col gap-4 px-8 pb-8">
