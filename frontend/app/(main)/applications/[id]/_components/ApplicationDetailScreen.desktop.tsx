@@ -30,7 +30,9 @@ export function ApplicationDetailDesktopView({
   return (
     <>
       <ApplicationDetailHeader onEdit={onEdit} onDelete={onDelete} />
-      <ApplicationDetailTitle application={application} status={selectedStatus} />
+      <div className="px-8 pb-6">
+        <ApplicationDetailTitle application={application} status={selectedStatus} />
+      </div>
 
       <div className="grid grid-cols-[1.6fr_1fr] gap-6 px-8 pb-8">
         <div className="flex flex-col gap-6">

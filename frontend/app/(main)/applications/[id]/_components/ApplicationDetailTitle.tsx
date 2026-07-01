@@ -14,7 +14,7 @@ export function ApplicationDetailTitle({
   status,
 }: ApplicationDetailTitleProps) {
   return (
-    <div className="flex items-center gap-4 px-8 pb-6">
+    <div className="flex items-center gap-4">
       <Avatar initial={application.companyInitial} size={56} />
       <div className="min-w-0">
         <h1 className="text-section font-extrabold text-ink-950">

@@ -8,8 +8,10 @@ import type { SubmissionFile } from '@/types/submissionFile';
 
 import { ApplicationFormDrawer } from '@/components/domain/applications/ApplicationFormDrawer';
 import { ConfirmDialog } from '@/components/feedback/ConfirmDialog';
+import { usePlatform } from '@/hooks/usePlatform';
 
 import { ApplicationDetailDesktopView } from './ApplicationDetailScreen.desktop';
+import { ApplicationDetailMobileView } from './ApplicationDetailScreen.mobile';
 
 export interface ApplicationDetailScreenProps {
   application: Application;
@@ -22,14 +24,28 @@ export function ApplicationDetailScreen({
   application,
   submissionFile,
 }: ApplicationDetailScreenProps) {
+  const platform = usePlatform();
   const [selectedStatus, setSelectedStatus] = useState<ApplicationStatus>(
     application.status,
   );
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  return (
-    <>
+  if (platform === null) {
+    return null; // 플랫폼 확정 전 (하이드레이션 안전)
+  }
+
+  const detailView =
+    platform === 'mobile' ? (
+      <ApplicationDetailMobileView
+        application={application}
+        submissionFile={submissionFile}
+        selectedStatus={selectedStatus}
+        onSelectStatus={setSelectedStatus}
+        onEdit={() => setEditOpen(true)}
+        onDelete={() => setDeleteOpen(true)}
+      />
+    ) : (
       <ApplicationDetailDesktopView
         application={application}
         submissionFile={submissionFile}
@@ -38,6 +54,11 @@ export function ApplicationDetailScreen({
         onEdit={() => setEditOpen(true)}
         onDelete={() => setDeleteOpen(true)}
       />
+    );
+
+  return (
+    <>
+      {detailView}
       <ApplicationFormDrawer
         open={editOpen}
         mode="edit"

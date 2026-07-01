@@ -29,6 +29,9 @@ export function MobileShell({ children }: MobileShellProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
 
+  // 서브 라우트(상세 등)는 자체 헤더를 갖고 등록 대상이 아니므로 기본 헤더·FAB를 숨긴다.
+  const isSubRoute = pathname.split('/').filter(Boolean).length > 1;
+
   // 본문 스크롤 36px 초과 시 FAB 축소 (반복 setState 방지)
   const handleScroll = (event: UIEvent<HTMLDivElement>) => {
     const next = event.currentTarget.scrollTop > 36;
@@ -37,40 +40,44 @@ export function MobileShell({ children }: MobileShellProps) {
 
   return (
     <div className="relative flex h-dvh flex-col overflow-hidden bg-surface-page">
-      {/* 헤더 */}
-      <header className="flex items-center justify-between border-b border-border-subtle bg-surface-card px-5 py-3.5">
-        <Link href="/dashboard" className="flex items-center gap-2.5 no-underline">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/tori-dice-cutout.png"
-            alt=""
-            className="size-7 object-contain"
-          />
-          <span className="font-display text-xl text-ink-950">Synply</span>
-        </Link>
-        <Avatar initial="민" size={34} />
-      </header>
+      {/* 헤더 (서브 라우트에서는 각 화면이 자체 헤더를 렌더) */}
+      {!isSubRoute && (
+        <header className="flex items-center justify-between border-b border-border-subtle bg-surface-card px-5 py-3.5">
+          <Link href="/dashboard" className="flex items-center gap-2.5 no-underline">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/tori-dice-cutout.png"
+              alt=""
+              className="size-7 object-contain"
+            />
+            <span className="font-display text-xl text-ink-950">Synply</span>
+          </Link>
+          <Avatar initial="민" size={34} />
+        </header>
+      )}
 
       {/* 본문 (스크롤 영역) */}
       <div onScroll={handleScroll} className="min-h-0 flex-1 overflow-y-auto pb-24">
         {children}
       </div>
 
-      {/* FAB (등록) — 실제 등록 시트 연결은 M-6 */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-[76px] z-10 flex items-center justify-end gap-2.5 px-4">
-        {!collapsed && (
-          <span className="pointer-events-auto rounded-full border border-border-subtle bg-surface-card px-3 py-1.5 font-mono text-3xs font-semibold text-text-muted shadow-card">
-            지원 기록 등록
-          </span>
-        )}
-        <button
-          type="button"
-          aria-label="지원 기록 등록"
-          className="pointer-events-auto inline-flex size-14 items-center justify-center rounded-full bg-brand text-white shadow-brand transition"
-        >
-          <Plus size={22} strokeWidth={2.5} aria-hidden />
-        </button>
-      </div>
+      {/* FAB (등록) — 서브 라우트에서는 숨김. 실제 등록 시트 연결은 M-6 */}
+      {!isSubRoute && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-[76px] z-10 flex items-center justify-end gap-2.5 px-4">
+          {!collapsed && (
+            <span className="pointer-events-auto rounded-full border border-border-subtle bg-surface-card px-3 py-1.5 font-mono text-3xs font-semibold text-text-muted shadow-card">
+              지원 기록 등록
+            </span>
+          )}
+          <button
+            type="button"
+            aria-label="지원 기록 등록"
+            className="pointer-events-auto inline-flex size-14 items-center justify-center rounded-full bg-brand text-white shadow-brand transition"
+          >
+            <Plus size={22} strokeWidth={2.5} aria-hidden />
+          </button>
+        </div>
+      )}
 
       {/* 하단 탭바 */}
       <nav className="flex items-center justify-around border-t border-border-subtle bg-surface-card px-3 pb-2 pt-2">
