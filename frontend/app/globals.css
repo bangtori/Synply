@@ -42,6 +42,7 @@
   /* 시안 고유 디스플레이 역할 */
   --text-section: 1.3125rem; /* 21px — 섹션/빈상태 제목 */
   --text-title: 1.6875rem; /* 27px — 페이지 타이틀 */
+  --text-hero: 2.125rem; /* 34px — 히어로/브랜드 헤드라인 */
   --text-stat: 2.625rem; /* 42px — 통계 숫자(Do Hyeon) */
 
   /* ---- Color scale: violet ---- */
