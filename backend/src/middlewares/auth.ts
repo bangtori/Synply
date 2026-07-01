@@ -38,6 +38,8 @@ export const requireAuth: RequestHandler = async (req, res, next) => {
       email: user.email ?? '',
     };
 
+    req.accessToken = accessToken;
+
     next();
   } catch (error) {
     next(error);
