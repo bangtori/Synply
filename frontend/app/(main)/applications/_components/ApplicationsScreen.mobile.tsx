@@ -1,0 +1,72 @@
+import { FilterChip } from '@/components/ui/FilterChip';
+import { SearchInput } from '@/components/ui/SearchInput';
+import { ViewToggle, type ViewMode } from '@/components/ui/ViewToggle';
+import type { KanbanColumn } from '@/lib/selectors/kanbanColumns';
+import type { Application } from '@/types/application';
+
+import { ApplicationCard } from './ApplicationCard';
+import { MobileKanban } from './MobileKanban';
+
+export interface ApplicationsMobileViewProps {
+  applications: Application[];
+  fileNameById: Record<string, string>;
+  kanbanColumns: KanbanColumn[];
+  view: ViewMode;
+  onViewChange: (view: ViewMode) => void;
+}
+
+export function ApplicationsMobileView({
+  applications,
+  fileNameById,
+  kanbanColumns,
+  view,
+  onViewChange,
+}: ApplicationsMobileViewProps) {
+  return (
+    <div className="flex flex-col gap-3 py-4">
+      <div className="flex flex-col gap-3 px-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-extrabold tracking-[-0.02em] text-ink-950">
+            지원 기록
+          </h1>
+          <ViewToggle value={view} onChange={onViewChange} />
+        </div>
+
+        {view === 'list' && (
+          <>
+            <SearchInput placeholder="회사·직무 검색" />
+            <div className="flex items-center justify-between">
+              {/* 필터 바텀시트는 M-6 */}
+              <FilterChip>필터</FilterChip>
+              <span className="text-2xs text-text-muted">
+                전체{' '}
+                <span className="font-bold text-ink-900">
+                  {applications.length}
+                </span>
+                건
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+
+      {view === 'list' ? (
+        <div className="flex flex-col gap-3 px-4">
+          {applications.map((application) => (
+            <ApplicationCard
+              key={application.id}
+              application={application}
+              fileName={
+                application.submissionFileId
+                  ? fileNameById[application.submissionFileId]
+                  : undefined
+              }
+            />
+          ))}
+        </div>
+      ) : (
+        <MobileKanban columns={kanbanColumns} fileNameById={fileNameById} />
+      )}
+    </div>
+  );
+}
