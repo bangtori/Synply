@@ -32,7 +32,7 @@ export function DashboardDesktopView({
       <div className="flex flex-col gap-6 px-8 pb-8">
         <DashboardStats stats={stats} />
 
-        <div className="grid grid-cols-[1fr_1.5fr] gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.5fr]">
           <StatusDistributionCard distribution={distribution} />
           <RecentApplicationsCard recent={recent} />
         </div>

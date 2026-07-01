@@ -10,7 +10,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
   const hasRate = stats.documentPassRate !== null;
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
       <StatCard label="총 지원" value={stats.total} suffix="건" />
       <StatCard label="진행 중" value={stats.active} suffix="건" />
       <StatCard

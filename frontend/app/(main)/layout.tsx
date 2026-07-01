@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
-import { DesktopShell } from '@/components/shells/DesktopShell';
+import { AppShell } from '@/components/shells/AppShell';
 
-// 지금은 데스크탑 셸 고정. 모바일 단계에서 usePlatform으로 셸 분기를 추가한다.
+// usePlatform 기반으로 Desktop/Mobile 셸을 분기한다(AppShell).
 export default function MainLayout({ children }: { children: ReactNode }) {
-  return <DesktopShell>{children}</DesktopShell>;
+  return <AppShell>{children}</AppShell>;
 }
