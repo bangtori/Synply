@@ -4,14 +4,17 @@ import { useState } from 'react';
 
 import { BlockedDialog } from '@/components/feedback/BlockedDialog';
 import { ConfirmDialog } from '@/components/feedback/ConfirmDialog';
+import { usePlatform } from '@/hooks/usePlatform';
 import { mockSubmissionFiles } from '@/lib/mock/submissionFiles';
 import type { SubmissionFile } from '@/types/submissionFile';
 
 import { SubmissionFilesDesktopView } from './SubmissionFilesScreen.desktop';
+import { SubmissionFilesMobileView } from './SubmissionFilesScreen.mobile';
 
 // 컨테이너: 삭제 확인/차단 다이얼로그 open 상태를 관리한다.
 // (실제 삭제/연결 해제 로직은 범위 밖)
 export function SubmissionFilesScreen() {
+  const platform = usePlatform();
   const files = mockSubmissionFiles;
   const [confirmTarget, setConfirmTarget] = useState<SubmissionFile | null>(
     null,
@@ -29,12 +32,23 @@ export function SubmissionFilesScreen() {
     }
   };
 
-  return (
-    <>
+  if (platform === null) {
+    return null; // 플랫폼 확정 전 (하이드레이션 안전)
+  }
+
+  const filesView =
+    platform === 'mobile' ? (
+      <SubmissionFilesMobileView files={files} onDeleteClick={handleDeleteClick} />
+    ) : (
       <SubmissionFilesDesktopView
         files={files}
         onDeleteClick={handleDeleteClick}
       />
+    );
+
+  return (
+    <>
+      {filesView}
 
       <ConfirmDialog
         open={confirmTarget !== null}
