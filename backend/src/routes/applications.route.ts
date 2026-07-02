@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   createApplication,
+  deleteApplication,
   getApplicationDetail,
   getApplications,
   updateApplication,
@@ -115,5 +116,28 @@ applicationRouter.patch(
     );
 
     sendSuccess(res, application);
+  }),
+);
+
+// DELETE /applications/:id
+applicationRouter.delete(
+  '/:id',
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const accessToken = req.accessToken!;
+    const userId = req.user!.id;
+    const applicationId = req.params.id;
+
+    if (!applicationId || Array.isArray(applicationId)) {
+      throw new AppError(
+        400,
+        ERROR_CODE.VALIDATION_ERROR,
+        '지원 기록 id가 올바르지 않습니다.',
+      );
+    }
+
+    await deleteApplication(accessToken, userId, applicationId);
+
+    res.status(204).send();
   }),
 );

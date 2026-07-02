@@ -151,3 +151,28 @@ export async function updateApplication(
 
   return mapApplicationRowToDetailResponse(data as ApplicationRow);
 }
+
+// 지원 기록 삭제
+export async function deleteApplication(
+  accessToken: string,
+  userId: string,
+  applicationId: string,
+): Promise<void> {
+  const supabase = createSupabaseUserClient(accessToken);
+
+  const { data, error } = await supabase
+    .from(TABLE.APPLICATIONS)
+    .delete()
+    .eq('user_id', userId)
+    .eq('application_id', applicationId)
+    .select();
+
+  if (error || !data || data.length === 0) {
+    throw new AppError(
+      404,
+      ERROR_CODE.APPLICATION_NOT_FOUND,
+      '지원 기록을 찾을 수 없습니다.',
+    );
+  }
+  return;
+}
