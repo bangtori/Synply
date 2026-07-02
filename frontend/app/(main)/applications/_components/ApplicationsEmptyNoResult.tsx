@@ -10,18 +10,21 @@ import { SearchInput } from '@/components/ui/SearchInput';
 export function ApplicationsEmptyNoResult() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="w-[270px]">
+      {/* 검색 / 필터칩을 두 줄로 분리 (좁은 화면에서 애매한 줄바꿈 방지) */}
+      <div className="flex flex-col gap-3">
+        <div className="w-full max-w-[360px]">
           <SearchInput defaultValue="배달" placeholder="회사·직무 검색" />
         </div>
-        <FilterChip variant="removable">면접중</FilterChip>
-        <FilterChip variant="removable">원티드</FilterChip>
-        <button
-          type="button"
-          className="text-xs font-semibold text-text-muted transition hover:text-text-body"
-        >
-          필터 초기화
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <FilterChip variant="removable">면접중</FilterChip>
+          <FilterChip variant="removable">원티드</FilterChip>
+          <button
+            type="button"
+            className="text-xs font-semibold text-text-muted transition hover:text-text-body"
+          >
+            필터 초기화
+          </button>
+        </div>
       </div>
 
       <EmptyState

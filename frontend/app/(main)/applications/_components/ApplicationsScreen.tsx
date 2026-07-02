@@ -51,6 +51,7 @@ export function ApplicationsScreen({ emptyPreview }: ApplicationsScreenProps) {
         kanbanColumns={kanbanColumns}
         view={view}
         onViewChange={setView}
+        emptyState={emptyState}
       />
     );
   }
