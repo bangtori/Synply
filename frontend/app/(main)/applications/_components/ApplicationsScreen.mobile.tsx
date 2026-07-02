@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 import { FilterChip } from '@/components/ui/FilterChip';
 import { SearchInput } from '@/components/ui/SearchInput';
 import { ViewToggle, type ViewMode } from '@/components/ui/ViewToggle';
@@ -5,6 +9,7 @@ import type { KanbanColumn } from '@/lib/selectors/kanbanColumns';
 import type { Application } from '@/types/application';
 
 import { ApplicationCard } from './ApplicationCard';
+import { ApplicationsFilterSheet } from './ApplicationsFilterSheet';
 import { MobileKanban } from './MobileKanban';
 
 export interface ApplicationsMobileViewProps {
@@ -22,6 +27,8 @@ export function ApplicationsMobileView({
   view,
   onViewChange,
 }: ApplicationsMobileViewProps) {
+  const [filterOpen, setFilterOpen] = useState(false);
+
   return (
     <div className="flex flex-col gap-3 py-4">
       <div className="flex flex-col gap-3 px-4">
@@ -36,8 +43,7 @@ export function ApplicationsMobileView({
           <>
             <SearchInput placeholder="회사·직무 검색" />
             <div className="flex items-center justify-between">
-              {/* 필터 바텀시트는 M-6 */}
-              <FilterChip>필터</FilterChip>
+              <FilterChip onClick={() => setFilterOpen(true)}>필터</FilterChip>
               <span className="text-2xs text-text-muted">
                 전체{' '}
                 <span className="font-bold text-ink-900">
@@ -67,6 +73,11 @@ export function ApplicationsMobileView({
       ) : (
         <MobileKanban columns={kanbanColumns} fileNameById={fileNameById} />
       )}
+
+      <ApplicationsFilterSheet
+        open={filterOpen}
+        onClose={() => setFilterOpen(false)}
+      />
     </div>
   );
 }

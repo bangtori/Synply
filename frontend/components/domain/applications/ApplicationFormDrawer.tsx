@@ -1,7 +1,9 @@
 'use client';
 
 import { DesktopDrawer } from '@/components/layout/DesktopDrawer';
+import { MobileSheet } from '@/components/layout/MobileSheet';
 import { Button } from '@/components/ui/Button';
+import { usePlatform } from '@/hooks/usePlatform';
 import type { Application } from '@/types/application';
 import type { SubmissionFile } from '@/types/submissionFile';
 
@@ -23,10 +25,14 @@ export function ApplicationFormDrawer({
   submissionFile,
   onClose,
 }: ApplicationFormDrawerProps) {
+  const platform = usePlatform();
   const isEdit = mode === 'edit';
 
+  // 데스크탑=우측 드로어 / 모바일=바텀시트 (API 동일)
+  const Shell = platform === 'mobile' ? MobileSheet : DesktopDrawer;
+
   return (
-    <DesktopDrawer
+    <Shell
       open={open}
       onClose={onClose}
       eyebrow={isEdit ? 'Edit Application' : 'New Application'}
@@ -48,6 +54,6 @@ export function ApplicationFormDrawer({
         application={application}
         submissionFile={submissionFile}
       />
-    </DesktopDrawer>
+    </Shell>
   );
 }

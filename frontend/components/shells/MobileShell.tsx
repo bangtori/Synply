@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ClipboardList, Files, LayoutDashboard, Plus } from 'lucide-react';
 
+import { ApplicationFormDrawer } from '@/components/domain/applications/ApplicationFormDrawer';
 import { Avatar } from '@/components/ui/Avatar';
 import { cn } from '@/utils/cn';
 
@@ -28,6 +29,7 @@ export interface MobileShellProps {
 export function MobileShell({ children }: MobileShellProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
 
   // 서브 라우트(상세 등)는 자체 헤더를 갖고 등록 대상이 아니므로 기본 헤더·FAB를 숨긴다.
   const isSubRoute = pathname.split('/').filter(Boolean).length > 1;
@@ -72,12 +74,20 @@ export function MobileShell({ children }: MobileShellProps) {
           <button
             type="button"
             aria-label="지원 기록 등록"
+            onClick={() => setCreateOpen(true)}
             className="pointer-events-auto inline-flex size-14 items-center justify-center rounded-full bg-brand text-white shadow-brand transition"
           >
             <Plus size={22} strokeWidth={2.5} aria-hidden />
           </button>
         </div>
       )}
+
+      {/* 등록 시트 (FAB 진입) */}
+      <ApplicationFormDrawer
+        open={createOpen}
+        mode="create"
+        onClose={() => setCreateOpen(false)}
+      />
 
       {/* 하단 탭바 */}
       <nav className="flex items-center justify-around border-t border-border-subtle bg-surface-card px-3 pb-2 pt-2">
