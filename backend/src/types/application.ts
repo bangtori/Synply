@@ -62,3 +62,16 @@ export type ApplicationDetailResponse = ApplicationResponse & {
   submissionFiles: ApplicationSubmissionFileResponse[];
   memo: ApplicationMemoResponse | null;
 };
+
+// ---- 수정 ----- //
+// 수정 DB Update
+export type UpdateApplicationUpdate = {
+  company_name?: string;
+  position_title?: string;
+  posting_url?: string | null;
+  deadline_date?: string | null;
+  platform?: string | null;
+  tech_stacks?: string[];
+  status?: ApplicationStatus;
+  applied_at?: string;
+};

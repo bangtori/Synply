@@ -7,8 +7,12 @@ import {
   mapApplicationRowToDetailResponse,
   mapApplicationRowToResponse,
   mapCreateApplicationRequestToInsertData,
+  mapUpdateApplicationRequestToUpdateData,
 } from '../mapper/application.mapper.js';
-import type { CreateApplicationRequest } from '../schemas/application.schema.js';
+import type {
+  CreateApplicationRequest,
+  UpdateApplicationRequest,
+} from '../schemas/application.schema.js';
 import type {
   ApplicationDetailResponse,
   ApplicationListResult,
@@ -116,4 +120,34 @@ export async function getApplicationDetail(
   }
 
   return mapApplicationRowToDetailResponse(appRow as ApplicationRow);
+}
+
+// 지원 기록 수정
+export async function updateApplication(
+  accessToken: string,
+  userId: string,
+  applicationId: string,
+  request: UpdateApplicationRequest,
+): Promise<ApplicationDetailResponse> {
+  const supabase = createSupabaseUserClient(accessToken);
+
+  const updateData = mapUpdateApplicationRequestToUpdateData(request);
+
+  const { data, error } = await supabase
+    .from(TABLE.APPLICATIONS)
+    .update(updateData)
+    .eq('user_id', userId)
+    .eq('application_id', applicationId)
+    .select()
+    .single();
+
+  if (error || !data) {
+    throw new AppError(
+      404,
+      ERROR_CODE.APPLICATION_NOT_FOUND,
+      '지원 기록을 찾을 수 없습니다.',
+    );
+  }
+
+  return mapApplicationRowToDetailResponse(data as ApplicationRow);
 }

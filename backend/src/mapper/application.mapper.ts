@@ -5,7 +5,9 @@ import type {
   ApplicationRow,
   CreateApplicationInsert,
   ApplicationDetailResponse,
+  UpdateApplicationUpdate,
 } from '../types/application.js';
+import type { UpdateApplicationRequest } from '../schemas/application.schema.js';
 
 // 1. 생성 :  요청 → DB insert 타입
 export function mapCreateApplicationRequestToInsertData(
@@ -61,4 +63,45 @@ export function mapApplicationRowToDetailResponse(
     submissionFiles: [],
     memo: null,
   };
+}
+
+// 5. 수정: 요청 → DB update 타입
+export function mapUpdateApplicationRequestToUpdateData(
+  request: UpdateApplicationRequest,
+): UpdateApplicationUpdate {
+  const updateData: UpdateApplicationUpdate = {};
+
+  if (request.companyName !== undefined) {
+    updateData.company_name = request.companyName;
+  }
+
+  if (request.positionTitle !== undefined) {
+    updateData.position_title = request.positionTitle;
+  }
+
+  if (request.postingUrl !== undefined) {
+    updateData.posting_url = request.postingUrl;
+  }
+
+  if (request.deadlineDate !== undefined) {
+    updateData.deadline_date = request.deadlineDate;
+  }
+
+  if (request.platform !== undefined) {
+    updateData.platform = request.platform;
+  }
+
+  if (request.techStacks !== undefined) {
+    updateData.tech_stacks = request.techStacks;
+  }
+
+  if (request.status !== undefined) {
+    updateData.status = request.status;
+  }
+
+  if (request.appliedAt !== undefined) {
+    updateData.applied_at = request.appliedAt;
+  }
+
+  return updateData;
 }

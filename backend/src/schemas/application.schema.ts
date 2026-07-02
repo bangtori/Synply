@@ -31,6 +31,9 @@ export type CreateApplicationRequest = z.infer<typeof createApplicationSchema>;
 
 // 수정 요청 스키마
 export const updateApplicationSchema = createApplicationSchema
+  .omit({
+    submissionFileIds: true,
+  })
   .partial()
   .refine((data) => Object.keys(data).length > 0, {
     message: '수정할 필드를 하나 이상 입력해주세요.',

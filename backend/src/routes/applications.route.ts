@@ -3,10 +3,14 @@ import {
   createApplication,
   getApplicationDetail,
   getApplications,
+  updateApplication,
 } from '../services/application.service.js';
 import { asyncHandler } from '../utils/async-handler.js';
 import { sendSuccess } from '../utils/response.js';
-import { createApplicationSchema } from '../schemas/application.schema.js';
+import {
+  createApplicationSchema,
+  updateApplicationSchema,
+} from '../schemas/application.schema.js';
 import { requireAuth } from '../middlewares/auth.js';
 import { AppError } from '../errors/AppError.js';
 import { ERROR_CODE } from '../errors/errorCode.js';
@@ -78,6 +82,36 @@ applicationRouter.get(
       accessToken,
       userId,
       applicationId,
+    );
+
+    sendSuccess(res, application);
+  }),
+);
+
+// PATCH /applications/:id
+applicationRouter.patch(
+  '/:id',
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const accessToken = req.accessToken!;
+    const userId = req.user!.id;
+    const applicationId = req.params.id;
+
+    if (!applicationId || Array.isArray(applicationId)) {
+      throw new AppError(
+        400,
+        ERROR_CODE.VALIDATION_ERROR,
+        '지원 기록 id가 올바르지 않습니다.',
+      );
+    }
+
+    const request = updateApplicationSchema.parse(req.body);
+
+    const application = await updateApplication(
+      accessToken,
+      userId,
+      applicationId,
+      request,
     );
 
     sendSuccess(res, application);
