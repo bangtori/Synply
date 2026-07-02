@@ -4,11 +4,13 @@ import { TABLE } from '../constants/table.js';
 import { createSupabaseUserClient } from '../lib/supabase-user.js';
 import {
   mapApplicationRowsToResponse,
+  mapApplicationRowToDetailResponse,
   mapApplicationRowToResponse,
   mapCreateApplicationRequestToInsertData,
 } from '../mapper/application.mapper.js';
 import type { CreateApplicationRequest } from '../schemas/application.schema.js';
 import type {
+  ApplicationDetailResponse,
   ApplicationListResult,
   ApplicationResponse,
   ApplicationRow,
@@ -86,4 +88,32 @@ export async function getApplications(
       hasNextPage: page * pageSize < total,
     },
   };
+}
+
+// 지원 기록 상세 조회
+// TODO: file, memo 테이블 조인 구현 필요 -> 현재 임시 빈값 반환
+export async function getApplicationDetail(
+  accessToken: string,
+  userId: string,
+  applicationId: string,
+): Promise<ApplicationDetailResponse> {
+  const supabase = createSupabaseUserClient(accessToken);
+
+  // 지원 기록 기본 정보
+  const { data: appRow, error: appError } = await supabase
+    .from(TABLE.APPLICATIONS)
+    .select('*')
+    .eq('user_id', userId)
+    .eq('application_id', applicationId)
+    .single();
+
+  if (appError || !appRow) {
+    throw new AppError(
+      404,
+      ERROR_CODE.APPLICATION_NOT_FOUND,
+      '지원 기록을 찾을 수 없습니다.',
+    );
+  }
+
+  return mapApplicationRowToDetailResponse(appRow as ApplicationRow);
 }

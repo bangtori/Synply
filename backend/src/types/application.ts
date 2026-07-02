@@ -1,5 +1,7 @@
 import type { Pagination } from './pagination.js';
 import type { ApplicationStatus } from '../constants/application-status.js';
+import type { ApplicationSubmissionFileResponse } from './submission-file.js';
+import type { ApplicationMemoResponse } from './application-memo.js';
 
 //DB
 export type ApplicationRow = {
@@ -52,4 +54,11 @@ export type CreateApplicationInsert = {
   tech_stacks: string[];
   status: ApplicationStatus;
   applied_at: string;
+};
+
+// ---- 상세 조회 ----- //
+// API 반환 : 지원 기록 상세 응답
+export type ApplicationDetailResponse = ApplicationResponse & {
+  submissionFiles: ApplicationSubmissionFileResponse[];
+  memo: ApplicationMemoResponse | null;
 };

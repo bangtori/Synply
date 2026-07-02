@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import {
   createApplication,
+  getApplicationDetail,
   getApplications,
 } from '../services/application.service.js';
 import { asyncHandler } from '../utils/async-handler.js';
 import { sendSuccess } from '../utils/response.js';
 import { createApplicationSchema } from '../schemas/application.schema.js';
 import { requireAuth } from '../middlewares/auth.js';
+import { AppError } from '../errors/AppError.js';
+import { ERROR_CODE } from '../errors/errorCode.js';
 
 export const applicationRouter = Router();
 
@@ -52,5 +55,31 @@ applicationRouter.post(
 
     // 성공 반환
     sendSuccess(res, application, undefined, 201);
+  }),
+);
+
+// GET /applications/:id
+applicationRouter.get(
+  '/:id',
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    const accessToken = req.accessToken!;
+    const userId = req.user!.id;
+    const applicationId = req.params.id;
+
+    if (!applicationId || Array.isArray(applicationId)) {
+      throw new AppError(
+        400,
+        ERROR_CODE.VALIDATION_ERROR,
+        '지원 기록 id가 올바르지 않습니다.',
+      );
+    }
+    const application = await getApplicationDetail(
+      accessToken,
+      userId,
+      applicationId,
+    );
+
+    sendSuccess(res, application);
   }),
 );

@@ -4,6 +4,7 @@ import type {
   ApplicationResponse,
   ApplicationRow,
   CreateApplicationInsert,
+  ApplicationDetailResponse,
 } from '../types/application.js';
 
 // 1. 생성 :  요청 → DB insert 타입
@@ -48,4 +49,16 @@ export function mapApplicationRowsToResponse(
   rows: ApplicationRow[],
 ): ApplicationListResponse {
   return rows.map(mapApplicationRowToResponse);
+}
+
+// 4. DB row → API 상세 응답
+export function mapApplicationRowToDetailResponse(
+  row: ApplicationRow,
+): ApplicationDetailResponse {
+  return {
+    ...mapApplicationRowToResponse(row),
+    // TODO: 추후 파일/ 메모 테이블 생성 후 연결
+    submissionFiles: [],
+    memo: null,
+  };
 }
