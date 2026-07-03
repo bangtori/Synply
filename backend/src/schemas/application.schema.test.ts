@@ -174,6 +174,12 @@ describe('updateApplicationSchema 테스트', () => {
       const result = updateApplicationSchema.safeParse({});
       expect(result.success).toBe(false);
     });
+    it('submissionFileIds는 수정 스키마에서 허용하지 않는다.', () => {
+      const result = updateApplicationSchema.safeParse({
+        submissionFileIds: ['550e8400-e29b-41d4-a716-446655440000'],
+      });
+      expect(result.success).toBe(false);
+    });
   });
   describe('기존 검증 적용 테스트', () => {
     it('status에 잘못된 enum을 전달하면 실패한다.', () => {

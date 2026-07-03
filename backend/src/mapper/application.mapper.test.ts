@@ -2,8 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import {
   mapApplicationRowsToResponse,
+  mapApplicationRowToDetailResponse,
   mapApplicationRowToResponse,
   mapCreateApplicationRequestToInsertData,
+  mapUpdateApplicationRequestToUpdateData,
 } from './application.mapper.js';
 
 import type { CreateApplicationRequest } from '../schemas/application.schema.js';
@@ -37,46 +39,44 @@ const applicationRow: ApplicationRow = {
   updated_at: '2026-07-01T00:00:00Z',
 };
 
-describe('application mapper 테스트', () => {
-  describe('mapCreateApplicationRequestToInsertData', () => {
-    it('생성 요청을 DB insert 데이터로 변환한다.', () => {
-      const result = mapCreateApplicationRequestToInsertData(
-        userId,
-        createRequest,
-      );
+describe('mapCreateApplicationRequestToInsertData 테스트', () => {
+  it('생성 요청을 DB insert 데이터로 변환한다.', () => {
+    const result = mapCreateApplicationRequestToInsertData(
+      userId,
+      createRequest,
+    );
 
-      expect(result).toEqual({
-        user_id: userId,
-        company_name: '토스',
-        position_title: '프론트엔드',
-        posting_url: 'https://toss.im',
-        deadline_date: '2026-07-31',
-        platform: '원티드',
-        tech_stacks: ['React', 'TypeScript'],
-        status: 'APPLIED',
-        applied_at: '2026-07-01',
-      });
+    expect(result).toEqual({
+      user_id: userId,
+      company_name: '토스',
+      position_title: '프론트엔드',
+      posting_url: 'https://toss.im',
+      deadline_date: '2026-07-31',
+      platform: '원티드',
+      tech_stacks: ['React', 'TypeScript'],
+      status: 'APPLIED',
+      applied_at: '2026-07-01',
+    });
+  });
+
+  it('선택값이 없으면 DB 기본 저장값으로 변환한다.', () => {
+    const result = mapCreateApplicationRequestToInsertData(userId, {
+      companyName: '토스',
+      positionTitle: '프론트엔드',
     });
 
-    it('선택값이 없으면 DB 기본 저장값으로 변환한다.', () => {
-      const result = mapCreateApplicationRequestToInsertData(userId, {
-        companyName: '토스',
-        positionTitle: '프론트엔드',
-      });
-
-      expect(result).toMatchObject({
-        user_id: userId,
-        company_name: '토스',
-        position_title: '프론트엔드',
-        posting_url: null,
-        deadline_date: null,
-        platform: null,
-        tech_stacks: [],
-        status: 'APPLIED',
-      });
-
-      expect(result.applied_at).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(result).toMatchObject({
+      user_id: userId,
+      company_name: '토스',
+      position_title: '프론트엔드',
+      posting_url: null,
+      deadline_date: null,
+      platform: null,
+      tech_stacks: [],
+      status: 'APPLIED',
     });
+
+    expect(result.applied_at).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
   describe('mapApplicationRowToResponse 테스트', () => {
@@ -123,6 +123,44 @@ describe('application mapper 테스트', () => {
       const result = mapApplicationRowsToResponse([]);
 
       expect(result).toEqual([]);
+    });
+  });
+});
+
+describe('mapUpdateApplicationRequestToUpdateData 테스트', () => {
+  it('일부 필드만 전달하면 해당 필드만 DB update 데이터로 변환한다.', () => {
+    const result = mapUpdateApplicationRequestToUpdateData({
+      companyName: '토스',
+      positionTitle: '프론트엔드',
+    });
+    expect(result).toEqual({
+      company_name: '토스',
+      position_title: '프론트엔드',
+    });
+  });
+  it('undefined인 필드는 update 데이터에 포함하지 않는다.', () => {
+    const result = mapUpdateApplicationRequestToUpdateData({
+      companyName: '토스',
+      positionTitle: undefined,
+    });
+    expect(result).toEqual({
+      company_name: '토스',
+    });
+  });
+  it('전달된 수정 필드가 없으면 빈 객체를 반환한다.', () => {
+    const result = mapUpdateApplicationRequestToUpdateData({});
+    expect(result).toEqual({});
+  });
+});
+
+describe('mapApplicationRowToDetailResponse 테스트', () => {
+  it('DB row를 API 상세 응답 형식으로 변환한다. 추후 파일, 메모 연결로 확장한다.', () => {
+    const result = mapApplicationRowToDetailResponse(applicationRow);
+
+    expect(result).toEqual({
+      ...mapApplicationRowToResponse(applicationRow),
+      submissionFiles: [],
+      memo: null,
     });
   });
 });
