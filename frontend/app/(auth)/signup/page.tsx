@@ -1,3 +1,5 @@
+import { SignupScreen } from './_components/SignupScreen';
+
 export default function SignupPage() {
-  return <h1>회원가입</h1>;
+  return <SignupScreen />;
 }

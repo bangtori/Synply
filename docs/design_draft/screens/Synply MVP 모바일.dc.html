@@ -20,6 +20,16 @@
   @keyframes toriFloat{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-11px) rotate(4deg);}}
 </style>
 </helmet>
+<template id="__bundler_thumbnail" data-bg-color="#5B2EE5">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#5B2EE5"></rect>
+    <rect x="500" y="240" width="200" height="320" rx="36" fill="#fff"></rect>
+    <circle cx="560" cy="330" r="18" fill="#FF892B"></circle>
+    <circle cx="640" cy="330" r="18" fill="#FF892B"></circle>
+    <circle cx="600" cy="400" r="18" fill="#FF892B"></circle>
+    <text x="600" y="640" font-family="sans-serif" font-size="56" font-weight="800" fill="#fff" text-anchor="middle">Synply</text>
+  </svg>
+</template>
 <div style="width:max-content;min-width:100%;min-height:100vh;box-sizing:border-box;padding:48px;background:#e7e5df;font-family:var(--font-body);">
 
   <!-- INTRO -->
@@ -78,6 +88,58 @@
   <!-- PHONES -->
   <div style="width:1242px;display:flex;flex-wrap:wrap;gap:56px 36px;">
 
+    <!-- 00 LOGIN -->
+    <div style="flex:none;">
+      <div style="font-family:var(--font-mono);font-size:11px;color:#8a8499;margin:0 0 10px;">00 · 로그인</div>
+      <div style="width:390px;height:844px;background:#15102b;border:10px solid #15102b;border-radius:46px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 26px 60px rgba(40,16,101,.16);overflow:hidden;display:flex;flex-direction:column;position:relative;">
+        <div style="position:absolute;inset:0;background:linear-gradient(165deg,var(--violet-600),var(--violet-800));"></div>
+        <div style="position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,137,43,.3),transparent 70%);top:-120px;right:-120px;"></div>
+        <div style="position:relative;flex:1;display:flex;flex-direction:column;padding:64px 28px 30px;">
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:34px;"><img src="assets/tori-dice-cutout.png" alt="" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 5px 10px rgba(0,0,0,.3));"><span style="font-family:var(--font-display);font-size:24px;color:#fff;">Synply</span></div>
+          <img src="assets/tori-face-cutout.png" alt="" style="width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 14px 26px rgba(0,0,0,.34));margin-bottom:18px;">
+          <div style="font-family:var(--font-body);font-weight:800;font-size:26px;line-height:1.3;color:#fff;letter-spacing:-.02em;margin-bottom:6px;">다시 오신 걸<br>환영해요</div>
+          <p style="font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.8);margin:0;">로그인하고 지원 현황을 이어서 관리하세요.</p>
+          <div style="flex:1;"></div>
+          <div style="background:var(--surface-card);border-radius:22px;padding:22px 20px;box-shadow:0 20px 50px rgba(0,0,0,.28);">
+            <div style="margin-bottom:13px;"><div style="font-weight:600;font-size:12.5px;color:var(--text-strong);margin-bottom:6px;">이메일</div><input value="minji@example.com" style="width:100%;box-sizing:border-box;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:13px;padding:11px 13px;"></div>
+            <div style="margin-bottom:14px;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-weight:600;font-size:12.5px;color:var(--text-strong);">비밀번호</span><span style="font-size:11.5px;color:var(--text-link);">찾기</span></div><input type="password" value="passwordval" style="width:100%;box-sizing:border-box;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:13px;padding:11px 13px;"></div>
+            <button style="width:100%;font-family:var(--font-body);font-weight:700;font-size:15px;color:#fff;background:var(--brand);border:none;border-radius:13px;padding:13px 0;box-shadow:var(--shadow-brand);cursor:pointer;margin-bottom:12px;">로그인</button>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><div style="flex:1;height:1px;background:var(--border-subtle);"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-subtle);">또는</span><div style="flex:1;height:1px;background:var(--border-subtle);"></div></div>
+            <div style="display:flex;gap:8px;">
+              <button style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;font-family:var(--font-body);font-weight:600;font-size:12.5px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:12px;padding:10px 0;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg>Google</button>
+              <button style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;font-family:var(--font-body);font-weight:600;font-size:12.5px;color:#fff;background:#191919;border:1.5px solid #191919;border-radius:12px;padding:10px 0;cursor:pointer;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M16.36 1c.08 1.06-.34 2.1-.99 2.86-.66.77-1.74 1.36-2.79 1.28-.1-1.02.4-2.08 1-2.74C14.25 1.6 15.4 1.05 16.36 1zM20.6 17.13c-.5 1.15-.74 1.66-1.39 2.68-.9 1.42-2.18 3.2-3.76 3.21-1.4.01-1.77-.92-3.68-.91-1.9.01-2.3.93-3.71.9-1.58-.01-2.79-1.6-3.7-3.02C1.83 16.04 1.56 11.3 3.13 8.79c.9-1.45 2.32-2.36 3.86-2.36 1.57 0 2.55.92 3.85.92 1.26 0 2.03-.92 3.84-.92 1.37 0 2.82.75 3.85 2.04-3.38 1.85-2.83 6.67.07 7.66z"/></svg>Apple</button>
+            </div>
+          </div>
+          <div style="text-align:center;font-size:13px;color:rgba(255,255,255,.85);margin-top:18px;">아직 계정이 없으세요? <span style="color:#fff;font-weight:700;">회원가입</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 00b SIGNUP -->
+    <div style="flex:none;">
+      <div style="font-family:var(--font-mono);font-size:11px;color:#8a8499;margin:0 0 10px;">00 · 회원가입</div>
+      <div style="width:390px;height:844px;background:var(--surface-card);border:10px solid #15102b;border-radius:46px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 26px 60px rgba(40,16,101,.16);overflow:hidden;display:flex;flex-direction:column;position:relative;">
+        <div style="height:46px;flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 7px;background:var(--surface-page);">
+          <span style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--ink-900);">9:41</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;color:var(--ink-900);"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"></rect><rect x="5" y="4.5" width="3" height="7.5" rx="1"></rect><rect x="10" y="2" width="3" height="10" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1" opacity="0.3"></rect></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.5" opacity="0.45"></rect><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"></rect><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor" opacity="0.45"></rect></svg></span>
+        </div>
+        <div style="flex:1;overflow-y:auto;background:var(--surface-page);display:flex;flex-direction:column;padding:18px 24px 28px;">
+          <div style="display:flex;align-items:center;gap:9px;margin-bottom:22px;"><img src="assets/tori-dice-cutout.png" alt="" style="width:28px;height:28px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(91,46,229,.35));"><span style="font-family:var(--font-display);font-size:22px;color:var(--ink-950);">Synply</span></div>
+          <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;color:var(--brand);text-transform:uppercase;margin-bottom:9px;">GET STARTED</div>
+          <div style="font-family:var(--font-body);font-weight:800;font-size:24px;color:var(--ink-950);letter-spacing:-.02em;margin-bottom:6px;">계정 만들기</div>
+          <p style="font-size:13.5px;color:var(--text-muted);margin:0 0 22px;">30초면 충분해요. 무료로 시작하세요.</p>
+          <button style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;font-family:var(--font-body);font-weight:600;font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:13px;padding:12px 0;cursor:pointer;margin-bottom:18px;"><svg width="17" height="17" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38z"/></svg>Google로 가입하기</button>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;"><div style="flex:1;height:1px;background:var(--border-subtle);"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-subtle);">또는 이메일로</span><div style="flex:1;height:1px;background:var(--border-subtle);"></div></div>
+          <div style="margin-bottom:13px;"><div style="font-weight:600;font-size:12.5px;color:var(--text-strong);margin-bottom:6px;">이름</div><input placeholder="이름 입력" style="width:100%;box-sizing:border-box;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:13px;padding:11px 13px;"></div>
+          <div style="margin-bottom:13px;"><div style="font-weight:600;font-size:12.5px;color:var(--text-strong);margin-bottom:6px;">이메일</div><input placeholder="you@example.com" style="width:100%;box-sizing:border-box;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:13px;padding:11px 13px;"></div>
+          <div style="margin-bottom:14px;"><div style="font-weight:600;font-size:12.5px;color:var(--text-strong);margin-bottom:6px;">비밀번호</div><input type="password" placeholder="8자 이상" style="width:100%;box-sizing:border-box;font-family:var(--font-body);font-size:14px;color:var(--ink-900);background:var(--surface-card);border:1.5px solid var(--border-default);border-radius:13px;padding:11px 13px;"><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-top:5px;">영문·숫자 포함 8자 이상</div></div>
+          <label style="display:flex;align-items:flex-start;gap:8px;margin-bottom:20px;"><span style="width:18px;height:18px;border-radius:6px;border:1.5px solid var(--border-default);background:var(--surface-card);flex:none;margin-top:1px;"></span><span style="font-size:12px;line-height:1.5;color:var(--text-muted);"><span style="color:var(--violet-700);">이용약관</span> 및 <span style="color:var(--violet-700);">개인정보 처리방침</span>에 동의합니다.</span></label>
+          <button style="width:100%;font-family:var(--font-body);font-weight:700;font-size:15px;color:#fff;background:var(--brand);border:none;border-radius:13px;padding:14px 0;box-shadow:var(--shadow-brand);cursor:pointer;">계정 만들기</button>
+          <div style="text-align:center;font-size:13px;color:var(--text-muted);margin-top:18px;">이미 계정이 있으세요? <span style="color:var(--violet-700);font-weight:700;">로그인</span></div>
+        </div>
+      </div>
+    </div>
+
     <!-- 01 DASHBOARD -->
     <div style="flex:none;">
       <div style="font-family:var(--font-mono);font-size:11px;color:#8a8499;margin:0 0 10px;">01 · 대시보드</div>
@@ -89,7 +151,17 @@
         <div style="flex:1;overflow-y:auto;background:var(--surface-page);display:flex;flex-direction:column;">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 14px;">
             <div style="display:flex;align-items:center;gap:9px;"><img src="assets/tori-dice-cutout.png" alt="" style="width:26px;height:26px;object-fit:contain;"><span style="font-family:var(--font-display);font-size:21px;color:var(--ink-950);">Synply</span></div>
-            <div style="width:34px;height:34px;border-radius:50%;background:var(--brand-subtle);color:var(--violet-700);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;">민</div>
+            <div style="position:relative;">
+              <div style="width:34px;height:34px;border-radius:50%;background:var(--brand-subtle);color:var(--violet-700);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer;">민</div>
+              <div style="position:absolute;top:calc(100% + 10px);right:0;width:240px;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:var(--shadow-xl);padding:6px;z-index:30;">
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;">
+                  <div style="width:34px;height:34px;border-radius:50%;background:var(--brand-subtle);color:var(--violet-700);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;">민</div>
+                  <div style="min-width:0;"><div style="font-size:13px;font-weight:700;color:var(--ink-900);">김민지</div><div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">toribang2000@gmail.com</div></div>
+                </div>
+                <div style="height:1px;background:var(--border-subtle);margin:2px 4px 5px;"></div>
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:11px;color:var(--danger-500);font-weight:600;font-size:14px;cursor:pointer;" style-hover="background:var(--danger-100);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>로그아웃</div>
+              </div>
+            </div>
           </div>
           <div style="padding:0 20px 6px;"><div style="font-family:var(--font-body);font-weight:800;font-size:23px;color:var(--ink-950);letter-spacing:-.02em;">대시보드</div></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:12px 20px 4px;">

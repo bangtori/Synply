@@ -9,7 +9,9 @@
 @import "../styles/tokens/typography.css";
 @import "../styles/tokens/spacing.css";
 @import "../styles/tokens/elevation.css";
-@import "../styles/tokens/base.css";
+/* base.css는 a/body/h1 등 요소 기본 스타일을 가지므로 base 레이어로 넣어
+   Tailwind 유틸리티가 정상적으로 덮어쓰게 한다(레이어 미지정 시 유틸리티보다 우선됨). */
+@import "../styles/tokens/base.css" layer(base);
 
 /* 프로젝트 확장 토큰 (시안 토큰에 없는 값) */
 :root {
@@ -26,6 +28,22 @@
   --font-sans: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Do Hyeon", "Noto Sans KR", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* ---- Font size scale (typography.css --fs-*) ---- */
+  --text-3xs: var(--fs-3xs); /* 11px */
+  --text-2xs: var(--fs-2xs); /* 12px */
+  --text-xs: var(--fs-xs); /* 13px */
+  --text-sm: var(--fs-sm); /* 14px */
+  --text-base: var(--fs-md); /* 16px */
+  --text-lg: var(--fs-lg); /* 18px */
+  --text-xl: var(--fs-xl); /* 22px */
+  --text-2xl: var(--fs-2xl); /* 28px */
+  --text-3xl: var(--fs-3xl); /* 36px */
+  /* 시안 고유 디스플레이 역할 */
+  --text-section: 1.3125rem; /* 21px — 섹션/빈상태 제목 */
+  --text-title: 1.6875rem; /* 27px — 페이지 타이틀 */
+  --text-hero: 2.125rem; /* 34px — 히어로/브랜드 헤드라인 */
+  --text-stat: 2.625rem; /* 42px — 통계 숫자(Do Hyeon) */
 
   /* ---- Color scale: violet ---- */
   --color-violet-50: var(--violet-50);
@@ -117,4 +135,27 @@
   --shadow-card: var(--shadow-sm);
   --shadow-pop: var(--shadow-md);
   --shadow-brand: 0 12px 28px rgba(91, 46, 229, 0.34);
+}
+
+/* ============================================================
+   마스코트 float 애니메이션 (EmptyState 첫 진입)
+   ============================================================ */
+@keyframes toriFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-tori-float {
+  animation: toriFloat 6.5s var(--ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-tori-float {
+    animation: none;
+  }
 }

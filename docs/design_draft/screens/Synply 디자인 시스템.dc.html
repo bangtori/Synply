@@ -260,6 +260,114 @@
     </div>
   </div>
 
+  <!-- ============ LAYOUT & NAVIGATION ============ -->
+  <div style="display:flex;align-items:center;gap:12px;margin:8px 0 8px;">
+    <span style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:#fff;background:var(--ink-950);border-radius:7px;padding:5px 11px;letter-spacing:.04em;">04</span>
+    <h2 style="font-family:var(--font-body);font-weight:800;font-size:24px;color:var(--ink-950);letter-spacing:-.01em;margin:0;">레이아웃 · 내비게이션</h2>
+  </div>
+  <p style="font-size:14px;line-height:1.6;color:var(--text-muted);margin:0 0 28px;max-width:720px;">화면 골격(셸)과 내비게이션 패턴. 데스크탑은 좌측 사이드바, 모바일은 하단 탭바 + FAB를 표준으로 합니다.</p>
+
+  <!-- DESKTOP SIDEBAR -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">데스크탑 사이드바</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">너비 240px · 흰 표면 · 우측 1px 보더. 로고 / 3개 nav 항목 / 하단 사용자 블록. nav active = brand-subtle 배경 + violet-700 텍스트 weight 700.</div>
+    <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;">
+      <div style="width:240px;flex:none;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;padding:22px 0;height:440px;">
+        <div style="display:flex;align-items:center;gap:10px;padding:0 22px;"><img src="assets/tori-dice-cutout.png" alt="" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(91,46,229,.35));"><span style="font-family:var(--font-display);font-size:23px;color:var(--ink-950);letter-spacing:-.01em;">Synply</span></div>
+        <nav style="margin-top:30px;display:flex;flex-direction:column;gap:3px;padding:0 12px;">
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:12px;font-size:14px;font-weight:700;color:var(--violet-700);background:var(--brand-subtle);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>대시보드</div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:12px;font-size:14px;font-weight:600;color:var(--text-muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"></rect><line x1="8" y1="8" x2="16" y2="8"></line><line x1="8" y1="12" x2="16" y2="12"></line><line x1="8" y1="16" x2="13" y2="16"></line></svg>지원 기록</div>
+          <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:12px;font-size:14px;font-weight:600;color:var(--text-muted);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg>이력서 파일</div>
+        </nav>
+        <div style="flex:1;"></div>
+        <div style="padding:0 18px;display:flex;align-items:center;gap:11px;"><div style="width:36px;height:36px;border-radius:50%;background:var(--brand-subtle);color:var(--violet-700);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none;">민</div><div><div style="font-size:13px;font-weight:700;color:var(--ink-900);">김민지</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-subtle);letter-spacing:.04em;">JOB SEEKER</div></div></div>
+      </div>
+      <div style="flex:1;min-width:220px;font-size:13px;line-height:1.8;color:var(--text-muted);">
+        <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);letter-spacing:.05em;margin-bottom:10px;">사양</div>
+        · 너비 <b style="color:var(--text-body);">240px</b> 고정, 전체 높이<br>
+        · 로고: dice 마크 30px + 워드마크(Do Hyeon 23px)<br>
+        · nav 항목: 12px 라운드, padding 11/14, 아이콘 18px<br>
+        · active: <span style="color:var(--violet-700);font-weight:700;">violet-700 / brand-subtle</span> · default: <span style="color:var(--text-muted);">text-muted</span><br>
+        · 하단: 아바타 36px + 이름/역할(mono CAPS)
+      </div>
+    </div>
+  </div>
+
+  <!-- DESKTOP HEADER -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">데스크탑 페이지 헤더</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">eyebrow(mono CAPS) + 페이지 타이틀(좌) · 주 액션 버튼(우). 메인 영역 상단 공통.</div>
+    <div style="background:var(--surface-page);border:1px solid var(--border-subtle);border-radius:14px;padding:26px 28px;display:flex;align-items:flex-end;justify-content:space-between;">
+      <div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--text-subtle);text-transform:uppercase;margin-bottom:7px;">DASHBOARD · 지원 기록 관리</div><div style="font-family:var(--font-body);font-weight:800;font-size:27px;color:var(--ink-950);letter-spacing:-.02em;">지원 기록</div></div>
+      <span style="display:inline-flex;align-items:center;gap:.5em;font-family:var(--font-body);font-weight:700;font-size:15px;color:#fff;background:var(--brand);border-radius:999px;padding:12px 20px;box-shadow:var(--shadow-brand);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>지원 기록 등록</span>
+    </div>
+  </div>
+
+  <!-- MOBILE TAB BAR -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">모바일 하단 탭바</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">3개 탭 균등(대시보드·지원 기록·이력서) + 우하단 등록 FAB(탭바와 분리). active 탭 = violet-700 아이콘/라벨.</div>
+    <div style="position:relative;max-width:390px;border:1px solid var(--border-subtle);border-radius:16px 16px 20px 20px;overflow:hidden;background:var(--surface-page);">
+      <div style="height:70px;background:repeating-linear-gradient(var(--surface-page),var(--surface-page) 13px,var(--ink-50) 13px,var(--ink-50) 14px);"></div>
+      <div style="position:absolute;right:16px;bottom:80px;display:inline-flex;align-items:center;gap:8px;height:48px;border-radius:999px;background:var(--brand);box-shadow:0 12px 26px rgba(91,46,229,.42);padding:0 18px 0 14px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg><span style="font-family:var(--font-body);font-weight:700;font-size:13px;color:#fff;">등록</span></div>
+      <div style="border-top:1px solid var(--border-subtle);background:var(--surface-card);display:flex;align-items:center;justify-content:space-around;padding:10px 14px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="var(--violet-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg><span style="font-size:10.5px;font-weight:700;color:var(--violet-700);">대시보드</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="var(--text-subtle)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2.5"></rect><line x1="8" y1="8" x2="16" y2="8"></line><line x1="8" y1="12" x2="16" y2="12"></line><line x1="8" y1="16" x2="13" y2="16"></line></svg><span style="font-size:10.5px;font-weight:600;color:var(--text-subtle);">지원 기록</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="var(--text-subtle)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg><span style="font-size:10.5px;font-weight:600;color:var(--text-subtle);">이력서</span></div>
+      </div>
+    </div>
+    <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);margin-top:12px;">FAB는 스크롤 상단에서 ‘+ 등록’ 확장형, 스크롤 시 원형 ‘+’로 축소(컴포넌트 03 참고). 첫 진입 빈 상태에선 중앙 CTA가 있어 FAB 생략.</div>
+  </div>
+
+  <!-- MOBILE STATUS + HEADER -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">모바일 상태바 · 헤더</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">상단 상태바(9:41 + 신호/배터리) + 화면 헤더(타이틀 좌, 토글/액션 우). 상세·시트는 뒤로가기 + 액션 헤더.</div>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;">
+      <div style="width:300px;flex:none;border:1px solid var(--border-subtle);border-radius:16px;overflow:hidden;">
+        <div style="height:38px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 6px;background:var(--surface-page);"><span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ink-900);">9:41</span><span style="display:inline-flex;align-items:center;gap:6px;color:var(--ink-900);"><svg width="16" height="11" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"></rect><rect x="5" y="4.5" width="3" height="7.5" rx="1"></rect><rect x="10" y="2" width="3" height="10" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1" opacity="0.3"></rect></svg><svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.5" opacity="0.45"></rect><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"></rect><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor" opacity="0.45"></rect></svg></span></div>
+        <div style="background:var(--surface-page);padding:12px 18px 16px;display:flex;align-items:center;justify-content:space-between;"><div style="font-family:var(--font-body);font-weight:800;font-size:21px;color:var(--ink-950);letter-spacing:-.02em;">지원 기록</div><div style="display:flex;background:var(--surface-sunken);border-radius:999px;padding:3px;gap:2px;"><span style="font-family:var(--font-body);font-weight:700;font-size:12px;color:#fff;background:var(--brand);border-radius:999px;padding:5px 12px;">리스트</span><span style="font-family:var(--font-body);font-weight:600;font-size:12px;color:var(--text-muted);padding:5px 12px;">칸반</span></div></div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-subtle);text-align:center;padding:0 0 10px;background:var(--surface-page);">기본 화면 헤더</div>
+      </div>
+      <div style="width:300px;flex:none;border:1px solid var(--border-subtle);border-radius:16px;overflow:hidden;">
+        <div style="height:38px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 6px;background:var(--surface-card);"><span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ink-900);">9:41</span><span style="display:inline-flex;align-items:center;gap:6px;color:var(--ink-900);"><svg width="16" height="11" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"></rect><rect x="5" y="4.5" width="3" height="7.5" rx="1"></rect><rect x="10" y="2" width="3" height="10" rx="1"></rect><rect x="15" y="0" width="3" height="12" rx="1" opacity="0.3"></rect></svg><svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.5" opacity="0.45"></rect><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"></rect><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor" opacity="0.45"></rect></svg></span></div>
+        <div style="background:var(--surface-card);padding:0 12px;height:50px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-subtle);"><span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-weight:600;font-size:14px;color:var(--text-body);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>지원 기록</span><div style="display:flex;gap:4px;align-items:center;"><span style="font-family:var(--font-body);font-weight:700;font-size:13px;color:var(--violet-700);padding:8px 8px;">수정</span><span style="width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--danger-500);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg></span></div></div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-subtle);text-align:center;padding:9px 0 10px;background:var(--surface-card);">상세/시트 헤더 (뒤로 + 액션)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERLAYS: DRAWER + SHEET -->
+  <div style="background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:18px;box-shadow:var(--shadow-sm);padding:24px 26px;margin-bottom:18px;">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:17px;color:var(--ink-950);margin:0 0 4px;">오버레이 패턴</div>
+    <div style="font-size:13px;color:var(--text-muted);margin:0 0 20px;">데스크탑 = 우측 드로어(540px) · 모바일 = 풀스크린/바텀 시트. 둘 다 scrim(ink 50% + blur) 위. 짧은 확인은 중앙 다이얼로그(컴포넌트 외 공용).</div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <!-- desktop drawer -->
+      <div style="flex:1;min-width:300px;">
+        <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">데스크탑 · 우측 드로어</div>
+        <div style="position:relative;height:240px;border-radius:14px;overflow:hidden;border:1px solid var(--border-subtle);background:rgba(21,15,43,.5);">
+          <div style="position:absolute;top:0;right:0;bottom:0;width:62%;background:var(--surface-card);box-shadow:-20px 0 50px rgba(40,16,101,.28);display:flex;flex-direction:column;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border-subtle);"><div><div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;color:var(--brand);text-transform:uppercase;margin-bottom:4px;">NEW</div><div style="font-family:var(--font-body);font-weight:800;font-size:15px;color:var(--ink-950);">지원 기록 등록</div></div><div style="width:30px;height:30px;border-radius:50%;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;color:var(--text-muted);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></div></div>
+            <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;gap:9px;"><div style="height:36px;border-radius:11px;background:var(--surface-sunken);"></div><div style="height:36px;border-radius:11px;background:var(--surface-sunken);"></div><div style="height:36px;border-radius:11px;background:var(--surface-sunken);"></div></div>
+            <div style="padding:12px 18px;border-top:1px solid var(--border-subtle);display:flex;justify-content:flex-end;gap:8px;"><span style="font-family:var(--font-body);font-weight:700;font-size:12px;color:var(--text-body);padding:8px 14px;">취소</span><span style="font-family:var(--font-body);font-weight:700;font-size:12px;color:#fff;background:var(--brand);border-radius:999px;padding:8px 16px;">등록</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- mobile sheet -->
+      <div style="flex:none;width:200px;">
+        <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--text-subtle);margin-bottom:9px;">모바일 · 바텀 시트</div>
+        <div style="position:relative;height:240px;border-radius:14px;overflow:hidden;border:1px solid var(--border-subtle);background:rgba(21,15,43,.5);">
+          <div style="position:absolute;left:0;right:0;bottom:0;height:78%;background:var(--surface-card);border-radius:18px 18px 0 0;display:flex;flex-direction:column;">
+            <div style="padding:9px 0 0;display:flex;justify-content:center;"><div style="width:36px;height:5px;border-radius:999px;background:var(--ink-200);"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--border-subtle);"><span style="font-family:var(--font-body);font-weight:800;font-size:14px;color:var(--ink-950);">필터</span><span style="font-family:var(--font-body);font-weight:600;font-size:11px;color:var(--text-link);">초기화</span></div>
+            <div style="flex:1;padding:14px 16px;display:flex;flex-direction:column;gap:8px;"><div style="height:24px;width:70%;border-radius:999px;background:var(--surface-sunken);"></div><div style="height:24px;width:90%;border-radius:999px;background:var(--surface-sunken);"></div></div>
+            <div style="padding:10px 16px 16px;"><div style="height:38px;border-radius:13px;background:var(--brand);"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER NOTE -->
   <div style="background:var(--surface-brand-soft);border-radius:18px;padding:22px 26px;margin-top:26px;display:flex;gap:16px;align-items:flex-start;">
     <img src="assets/tori-face-cutout.png" alt="" style="width:44px;height:44px;object-fit:contain;flex:none;filter:drop-shadow(0 6px 12px rgba(91,46,229,.3));">
