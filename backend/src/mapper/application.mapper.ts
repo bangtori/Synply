@@ -1,4 +1,7 @@
-import type { CreateApplicationRequest } from '../schemas/application.schema.js';
+import type {
+  CreateApplicationRequest,
+  UpdateApplicationStatusRequest,
+} from '../schemas/application.schema.js';
 import type {
   ApplicationListResponse,
   ApplicationResponse,
@@ -6,6 +9,9 @@ import type {
   CreateApplicationInsert,
   ApplicationDetailResponse,
   UpdateApplicationUpdate,
+  ApplicationStatusResponse,
+  ApplicationStatusRow,
+  UpdateApplicationStatusUpdate,
 } from '../types/application.js';
 import type { UpdateApplicationRequest } from '../schemas/application.schema.js';
 
@@ -104,4 +110,24 @@ export function mapUpdateApplicationRequestToUpdateData(
   }
 
   return updateData;
+}
+
+// 6. 전형 상태 변경: 요청 → DB update 타입
+export function mapUpdateApplicationStatusRequestToUpdateData(
+  request: UpdateApplicationStatusRequest,
+): UpdateApplicationStatusUpdate {
+  return {
+    status: request.status,
+  };
+}
+
+// 7. 전형 상태 변경: DB row → API 응답
+export function mapApplicationStatusRowToResponse(
+  row: ApplicationStatusRow,
+): ApplicationStatusResponse {
+  return {
+    id: row.application_id,
+    status: row.status,
+    updatedAt: row.updated_at,
+  };
 }

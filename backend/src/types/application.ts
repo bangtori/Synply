@@ -75,3 +75,21 @@ export type UpdateApplicationUpdate = {
   status?: ApplicationStatus;
   applied_at?: string;
 };
+
+// ---- 전형 상태 변경 ------ //
+// 전형 상태 변경 DB Update
+export type UpdateApplicationStatusUpdate = {
+  status: ApplicationStatus;
+};
+// 전형 상태 변경 DB 응답
+export type ApplicationStatusRow = {
+  application_id: string;
+  status: ApplicationStatus;
+  updated_at: string;
+};
+// 전형 상태 변경 API 응답
+export type ApplicationStatusResponse = {
+  id: string;
+  status: ApplicationStatus;
+  updatedAt: string;
+};

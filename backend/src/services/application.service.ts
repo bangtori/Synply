@@ -6,18 +6,23 @@ import {
   mapApplicationRowsToResponse,
   mapApplicationRowToDetailResponse,
   mapApplicationRowToResponse,
+  mapApplicationStatusRowToResponse,
   mapCreateApplicationRequestToInsertData,
   mapUpdateApplicationRequestToUpdateData,
+  mapUpdateApplicationStatusRequestToUpdateData,
 } from '../mapper/application.mapper.js';
 import type {
   CreateApplicationRequest,
   UpdateApplicationRequest,
+  UpdateApplicationStatusRequest,
 } from '../schemas/application.schema.js';
 import type {
   ApplicationDetailResponse,
   ApplicationListResult,
   ApplicationResponse,
   ApplicationRow,
+  ApplicationStatusResponse,
+  ApplicationStatusRow,
 } from '../types/application.js';
 
 // 지원 기록 생성
@@ -175,4 +180,34 @@ export async function deleteApplication(
     );
   }
   return;
+}
+
+// 전형 상태 변경
+export async function updateApplicationStatus(
+  accessToken: string,
+  userId: string,
+  applicationId: string,
+  request: UpdateApplicationStatusRequest,
+): Promise<ApplicationStatusResponse> {
+  const supabase = createSupabaseUserClient(accessToken);
+
+  const updateData = mapUpdateApplicationStatusRequestToUpdateData(request);
+
+  const { data, error } = await supabase
+    .from(TABLE.APPLICATIONS)
+    .update(updateData)
+    .eq('user_id', userId)
+    .eq('application_id', applicationId)
+    .select('application_id, status, updated_at')
+    .single();
+
+  if (error || !data) {
+    throw new AppError(
+      404,
+      ERROR_CODE.APPLICATION_NOT_FOUND,
+      '지원 기록을 찾을 수 없습니다.',
+    );
+  }
+
+  return mapApplicationStatusRowToResponse(data as ApplicationStatusRow);
 }

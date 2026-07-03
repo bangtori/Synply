@@ -41,3 +41,13 @@ export const updateApplicationSchema = createApplicationSchema
 
 // 수정 요청 타입
 export type UpdateApplicationRequest = z.infer<typeof updateApplicationSchema>;
+
+// 전형 상태 변경 요청 스키마
+export const updateApplicationStatusSchema = z.object({
+  status: applicationStatusSchema,
+});
+
+// 전형 상태 변경 요청 타입
+export type UpdateApplicationStatusRequest = z.infer<
+  typeof updateApplicationStatusSchema
+>;
