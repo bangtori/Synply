@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   createApplicationSchema,
   updateApplicationSchema,
+  updateApplicationStatusSchema,
 } from './application.schema.js';
 const validRequest = {
   companyName: '토스',
@@ -191,6 +192,36 @@ describe('updateApplicationSchema 테스트', () => {
     it('positionTitle이 공백이면 실패한다.', () => {
       const result = updateApplicationSchema.safeParse({
         positionTitle: '  ',
+      });
+      expect(result.success).toBe(false);
+    });
+  });
+});
+
+describe('updateApplicationStatusSchema 테스트', () => {
+  describe('성공 케이스', () => {
+    it('status만 입력하면 성공한다.', () => {
+      const result = updateApplicationStatusSchema.safeParse({
+        status: 'APPLIED',
+      });
+      expect(result.success).toBe(true);
+    });
+  });
+  describe('예외 테스트', () => {
+    it('status를 입력하지 않으면 실패한다.', () => {
+      const result = updateApplicationStatusSchema.safeParse({});
+      expect(result.success).toBe(false);
+    });
+    it('status가 유효하지 않은 상태 값이면 실패한다.', () => {
+      const result = updateApplicationStatusSchema.safeParse({
+        status: 'INVALID',
+      });
+      expect(result.success).toBe(false);
+    });
+    it('status 이외의 필드를 전달하면 실패한다.', () => {
+      const result = updateApplicationStatusSchema.safeParse({
+        status: 'APPLIED',
+        companyName: '토스',
       });
       expect(result.success).toBe(false);
     });

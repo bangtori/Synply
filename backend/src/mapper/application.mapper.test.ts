@@ -4,8 +4,10 @@ import {
   mapApplicationRowsToResponse,
   mapApplicationRowToDetailResponse,
   mapApplicationRowToResponse,
+  mapApplicationStatusRowToResponse,
   mapCreateApplicationRequestToInsertData,
   mapUpdateApplicationRequestToUpdateData,
+  mapUpdateApplicationStatusRequestToUpdateData,
 } from './application.mapper.js';
 
 import type { CreateApplicationRequest } from '../schemas/application.schema.js';
@@ -161,6 +163,33 @@ describe('mapApplicationRowToDetailResponse 테스트', () => {
       ...mapApplicationRowToResponse(applicationRow),
       submissionFiles: [],
       memo: null,
+    });
+  });
+});
+
+describe('mapUpdateApplicationStatusRequestToUpdateData 테스트', () => {
+  it('전형 상태 변경 요청을 DB update 데이터로 변환한다.', () => {
+    const result = mapUpdateApplicationStatusRequestToUpdateData({
+      status: 'INTERVIEWING',
+    });
+    expect(result).toEqual({
+      status: 'INTERVIEWING',
+    });
+  });
+});
+
+describe('mapApplicationStatusRowToResponse 테스트', () => {
+  it('DB row를 API 응답 형식으로 변환한다.', () => {
+    const result = mapApplicationStatusRowToResponse({
+      application_id: 'app-001',
+      status: 'INTERVIEWING',
+      updated_at: '2026-07-01T00:00:00Z',
+    });
+
+    expect(result).toEqual({
+      id: 'app-001',
+      status: 'INTERVIEWING',
+      updatedAt: '2026-07-01T00:00:00Z',
     });
   });
 });
